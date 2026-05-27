@@ -3,87 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vision Apostas - Painel</title>
+    <title>Vision Apostas - Painel Premium</title>
     <style>
+        /* Estilos Globais Modernos */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: #070a13; /* Fundo azul escuro profundo */
+            background: linear-gradient(180deg, #070a13 0%, #0c111d 100%);
             color: #ffffff;
             min-height: 100vh;
-            padding-top: 80px; /* Garante que a navbar não cubra nada */
+            padding: 80px 16px 30px 16px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
         }
 
-        /* ================= BARRA DO TOPO FIXA ================= */
+        /* ================= TOPO FIXO PREMIUM ================= */
         .top-navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 60px;
-            background-color: #111622;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            height: 65px;
+            background: rgba(17, 22, 34, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 16px;
-            z-index: 10000; /* Camada ultra alta para nunca travar */
+            padding: 0 20px;
+            z-index: 99999;
         }
 
         .nav-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .nav-left img {
-            width: 35px;
-            height: 35px;
-            border-radius: 6px;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
             border: 1px solid #0066ff;
+            box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
         }
 
         .nav-left span {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
+            letter-spacing: -0.3px;
         }
 
-        /* Botão Três Pontinhos Ajustado para Toque Rápido */
+        /* Botão Três Pontinhos Impecável */
         .menu-dots-btn {
             background: transparent;
             border: none;
-            color: #ffffff;
-            font-size: 26px;
+            color: #f1f5f9;
+            font-size: 28px;
             cursor: pointer;
-            padding: 10px;
+            padding: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10002;
         }
 
-        /* Caixinha do Menu Suspenso */
+        /* Menu Suspenso Lindo (Estilo iOS/Android Premium) */
         .dropdown-menu {
-            display: none; 
-            position: absolute;
-            top: 55px;
-            right: 16px;
-            background-color: #161b26;
-            border: 1px solid rgba(0, 102, 255, 0.3);
-            border-radius: 8px;
-            width: 180px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            display: none;
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            background: #161c2a;
+            border: 1px solid rgba(0, 102, 255, 0.25);
+            border-radius: 14px;
+            width: 190px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
             overflow: hidden;
-            z-index: 10005;
+            z-index: 999999;
         }
 
         .dropdown-item {
@@ -91,14 +95,15 @@
             align-items: center;
             gap: 12px;
             width: 100%;
-            padding: 14px 16px;
+            padding: 14px 18px;
             background: transparent;
             border: none;
-            color: #cbd5e1;
-            font-size: 13px;
+            color: #e2e8f0;
+            font-size: 14px;
             text-align: left;
             cursor: pointer;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: background 0.2s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .dropdown-item:last-child {
@@ -107,106 +112,159 @@
         }
 
         .dropdown-item:active {
-            background-color: rgba(0, 102, 255, 0.2);
+            background-color: rgba(0, 102, 255, 0.25);
         }
 
-        /* ================= CONTEÚDO PRINCIPAL ================= */
+        /* ================= CONTAINER PRINCIPAL ================= */
         .dashboard-container {
             width: 100%;
-            max-width: 1200px;
-            padding: 16px;
+            max-width: 1000px;
         }
 
-        /* Foto Centralizada Grande */
+        /* Foto e Título Central */
         .header-section {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .header-section img {
-            width: 90px;
-            height: 90px;
-            border-radius: 16px;
+            width: 96px;
+            height: 96px;
+            border-radius: 20px;
             border: 2px solid #0066ff;
-            box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
+            box-shadow: 0 0 25px rgba(0, 102, 255, 0.4);
             object-fit: cover;
             margin-bottom: 16px;
         }
 
-        .header-section h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
-        .header-section p { color: #64748b; font-size: 13px; }
+        .header-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .header-section p {
+            color: #64748b;
+            font-size: 13px;
+        }
 
         /* Grade de Cartões */
         .stats-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-            margin-bottom: 20px;
+            grid-template-columns: 1fr; /* Em pé no celular */
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
-        /* ================= EFEITO DE AURA AZUL AO CLICAR (TOUCH) ================= */
+        /* ================= CARTÕES COM EFEITO DE AURA SUAVE ================= */
         .stat-card, .action-card {
-            background: #161b26;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            cursor: pointer;
-            transition: all 0.2s ease;
+            background: #131926;
+            padding: 22px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            position: relative;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
         }
 
-        /* Quando o usuário clica ou toca no cartão, a aura azul aparece */
-        .stat-card:active, .action-card:active, .stat-card:focus-within {
+        /* Efeito de Aura Azul Suave e Elegante ao tocar */
+        .stat-card:active, .action-card:active {
             border-color: #0066ff;
-            box-shadow: 0 0 15px rgba(0, 102, 255, 0.5);
-            transform: scale(0.99);
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
+            transform: scale(0.98);
         }
 
-        .card-icon-box {
-            width: 32px;
-            height: 32px;
-            background: #0066ff;
-            border-radius: 6px;
+        /* Ícones em Círculos Azuis Fluidos */
+        .card-icon-circle {
+            width: 36px;
+            height: 36px;
+            background: rgba(0, 102, 255, 0.15);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 12px;
-            font-size: 14px;
-            box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+            margin-bottom: 14px;
+            font-size: 16px;
         }
 
-        .stat-card p { color: #94a3b8; font-size: 11px; font-weight: 600; text-transform: uppercase; }
-        .stat-card .value { font-size: 24px; font-weight: 700; margin-top: 6px; }
-        .stat-card .sub-text { color: #38bdf8; font-size: 12px; margin-top: 6px; font-weight: 500; }
+        .stat-card p {
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-        /* Área de Inputs */
-        .action-title { font-size: 14px; font-weight: 600; margin-bottom: 14px; }
-        .input-box { position: relative; margin-bottom: 14px; }
-        .input-box span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #64748b; font-weight: 600; }
+        .stat-card .value {
+            font-size: 26px;
+            font-weight: 700;
+            margin-top: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-card .sub-text {
+            color: #38bdf8;
+            font-size: 13px;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        /* Área do Formulário */
+        .action-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #f1f5f9;
+        }
+
+        .input-box {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .input-box span {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #475569;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
         .input-box input {
             width: 100%;
-            padding: 14px 14px 14px 32px;
+            padding: 16px 16px 16px 36px;
             background: #090d16;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
             color: white;
-            font-size: 15px;
+            font-size: 16px;
             outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .input-box input:focus {
+            border-color: #0066ff;
         }
 
+        /* Botão Fluido Principal */
         .btn-blue {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             background: #0066ff;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             color: white;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
         }
 
-        /* Camada para fechar o menu clicando fora */
-        .menu-overlay {
+        /* Camada para fechar o menu ao clicar fora */
+        .menu-backdrop {
             display: none;
             position: fixed;
             top: 0;
@@ -216,81 +274,60 @@
             z-index: 9999;
         }
 
-        /* ================= VERSÃO COMPUTADOR DEITADO ================= */
+        /* ================= COMPORTAMENTO NO COMPUTADOR (DEITADO) ================= */
         @media (min-width: 768px) {
             .stats-grid {
-                grid-template-columns: 1fr 1fr 1fr 1fr;
-                gap: 16px;
+                grid-template-columns: repeat(4, 1fr); /* 4 colunas perfeitamente deitadas */
+                gap: 20px;
             }
             .stat-card:hover, .action-card:hover {
                 border-color: #0066ff;
-                box-shadow: 0 0 15px rgba(0, 102, 255, 0.4);
+                box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Camada invisível de fechamento -->
-    <div class="menu-overlay" id="overlay-menu" onclick="alternarMenu()"></div>
+    <!-- Camada invisível de fundo -->
+    <div class="menu-backdrop" id="backdrop" onclick="fecharMenuComClickFora()"></div>
 
-    <!-- Barra do Topo Fixa -->
+    <!-- Navbar Superior -->
     <nav class="top-navbar">
         <div class="nav-left">
             <img src="https://unsplash.com" alt="Logo">
             <span>Mediadores Vision</span>
         </div>
         
-        <!-- Botão dos 3 Pontinhos Ativo -->
-        <button type="button" class="menu-dots-btn" onclick="alternarMenu()">⋮</button>
+        <!-- Botão de 3 Pontinhos Destravado -->
+        <button type="button" class="menu-dots-btn" onclick="toggleMenuSuspenso(event)">⋮</button>
 
-        <!-- Caixa Flutuante do Menu Suspenso -->
-        <div class="dropdown-menu" id="caixa-menu">
-            <button class="dropdown-item" onclick="navegarPara('inicio')">🏠 Início</button>
-            <button class="dropdown-item" onclick="navegarPara('dashboard')">📊 Dashboard</button>
-            <button class="dropdown-item" onclick="navegarPara('editar')">📝 Editar Lucros</button>
-            <button class="dropdown-item" onclick="navegarPara('config')">⚙️ Configurações</button>
-            <button class="dropdown-item" onclick="navegarPara('sair')">↪️ Sair</button>
+        <!-- Menu Suspenso -->
+        <div class="dropdown-menu" id="menuFlutuante">
+            <button class="dropdown-item" onclick="irPara('inicio')">🏠 Início</button>
+            <button class="dropdown-item" onclick="irPara('dashboard')">📊 Dashboard</button>
+            <button class="dropdown-item" onclick="irPara('editar')">📝 Editar Lucros</button>
+            <button class="dropdown-item" onclick="irPara('config')">⚙️ Configurações</button>
+            <button class="dropdown-item" onclick="irPara('sair')">↪️ Sair</button>
         </div>
     </nav>
 
     <div class="dashboard-container">
         
-        <!-- Cabeçalho Principal -->
+        <!-- Header Centralizado -->
         <div class="header-section">
             <img src="https://unsplash.com" alt="Vision Logo">
             <h2>Painel de Controle</h2>
             <p>Gerencie seus lucros com profissionalismo</p>
         </div>
 
-        <!-- Grade Dinâmica de Cartões (Todos Clicáveis com Aura) -->
+        <!-- Grade de Cartões Premium -->
         <div class="stats-grid">
-            <div class="stat-card" onclick="document.getElementById('valor-input').focus()">
-                <div class="card-icon-box">📅</div>
+            
+            <!-- Lucro Diário -->
+            <div class="stat-card" onclick="focarNoInput()">
+                <div class="card-icon-circle">📅</div>
                 <p>Lucro Diário</p>
                 <div class="value" id="lucro-diario">R$ 0,00</div>
             </div>
 
-            <div class="stat-card" onclick="document.getElementById('valor-input').focus()">
-                <div class="card-icon-box">📊</div>
-                <p>Lucro Semanal</p>
-                <div class="value" id="lucro-semanal">R$ 0,00</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="card-icon-box">📆</div>
-                <p>Dia da Semana</p>
-                <div class="value" id="dia-texto">...</div>
-                <div class="sub-text" id="data-texto" style="color: #64748b; font-size: 12px; margin-top: 6px;">00-00-2026</div>
-            </div>
-
-            <div class="stat-card">
-                <div class="card-icon-box">🕒</div>
-                <p>Hora Atual</p>
-                <div class="value" id="relogio-texto" style="color: #38bdf8;">00:00:00</div>
-                <div class="sub-text" id="tempo-restante">Faltam 00h 00min 00s</div>
-            </div>
-        </div>
-
-        <!-- Bloco de Input de Lucros -->
-        <div class="action-card" id="bloco-insercao">
