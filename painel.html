@@ -21,7 +21,7 @@
             padding: 16px;
             display: flex;
             justify-content: center;
-            align-items: center; /* Centraliza a tela de login inicialmente */
+            align-items: center; /* Centraliza o login verticalmente */
         }
 
         .container {
@@ -54,6 +54,7 @@
             margin: 0 auto 15px auto;
             border-radius: 12px;
             object-fit: cover;
+            display: block;
         }
 
         .auth-card h1 {
@@ -80,12 +81,12 @@
             border-radius: 6px;
             cursor: pointer;
             border: none;
-            background: none;
+            background: transparent;
             transition: all 0.2s ease;
         }
 
         .auth-tab.active {
-            background: #0066ff; /* Fundo Azul na aba ativa */
+            background: #0066ff; /* Fundo Azul */
             color: white;
         }
 
@@ -110,7 +111,6 @@
             border-color: #0066ff;
         }
 
-        /* Ícones dos Inputs */
         .input-icon {
             position: absolute;
             left: 14px;
@@ -124,7 +124,7 @@
         .btn-auth-submit {
             width: 100%;
             padding: 14px;
-            background-color: #0066ff; /* Botão Azul */
+            background-color: #0066ff;
             border: none;
             border-radius: 8px;
             color: white;
@@ -144,7 +144,7 @@
 
         /* --- AREA DO PAINEL PRINCIPAL (ESCONDIDO ANTES DO LOGIN) --- */
         #main-app {
-            display: none; /* Só aparece após logar */
+            display: none;
             width: 100%;
         }
 
@@ -225,18 +225,16 @@
         <!-- ================= TELA DE LOGIN / CADASTRO ================= -->
         <div id="auth-screen">
             <div class="auth-card">
-                <!-- Sua logo existente -->
-                <img class="auth-logo" src="assets/images/logo.png" alt="Vision Logo" onerror="this.src='https://placehold.co'">
+                <!-- Sua imagem existente -->
+                <img class="auth-logo" src="assets/images/logo.png" alt="Vision Logo">
                 <h1>Mediadores Vision</h1>
 
-                <!-- Abas alternáveis corrigidas -->
                 <div class="auth-tabs">
-                    <button type="button" class="auth-tab active" id="tab-login" onclick="mudarModoAuth('login')">Login</button>
-                    <button type="button" class="auth-tab" id="tab-cadastro" onclick="mudarModoAuth('cadastro')">Cadastrar</button>
+                    <button type="button" class="auth-tab active" id="tab-login">Login</button>
+                    <button type="button" class="auth-tab" id="tab-cadastro">Cadastrar</button>
                 </div>
 
-                <!-- Formulário -->
-                <form id="auth-form" onsubmit="processarAutenticacao(event)">
+                <form id="auth-form">
                     <div class="input-group">
                         <span class="input-icon">👤</span>
                         <input type="text" id="auth-user" placeholder="Usuário" required>
@@ -246,56 +244,66 @@
                         <input type="password" id="auth-pass" placeholder="Senha" required>
                     </div>
                     
-                    <button type="submit" class="btn-auth-submit" id="btn-auth-text">
-                        ➔ Entrar
-                    </button>
+                    <button type="submit" class="btn-auth-submit" id="btn-auth-text">➔ Entrar</button>
                 </form>
             </div>
         </div>
 
-
-        <!-- ================= APP PAINEL PRINCIPAL (SÓ APARECE APÓS LOGAR) ================= -->
+        <!-- ================= APP PAINEL PRINCIPAL ================= -->
         <div id="main-app">
             <header class="top-bar">
                 <div class="top-bar-left">
-                    <img src="assets/images/logo.png" alt="Vision Logo" onerror="this.src='https://placehold.co'">
+                    <!-- Sua imagem existente -->
+                    <img src="assets/images/logo.png" alt="Vision Logo">
                     <h2>Mediadores Vision</h2>
                 </div>
                 <div class="top-bar-right">
                     <span class="user-id" id="exibir-id">222</span>
-                    <button class="btn-menu-trigger" onclick="alternarMenu()">⋮</button>
+                    <button type="button" class="btn-menu-trigger" id="btn-trigger-menu">⋮</button>
                     
                     <nav class="dropdown-menu" id="menuFlutuante">
-                        <button class="dropdown-item" onclick="mudarTela('inicio')">🏠 Início</button>
-                        <button class="dropdown-item" onclick="mudarTela('dashboard')">📊 Dashboard</button>
-                        <button class="dropdown-item" onclick="mudarTela('editar')">📝 Editar Lucros</button>
-                        <button class="dropdown-item" onclick="mudarTela('config')">⚙️ Configurações</button>
-                        <button class="dropdown-item logout" onclick="deslogarSistema()">🚪 Sair</button>
+                        <button type="button" class="dropdown-item" id="nav-inicio">🏠 Início</button>
+                        <button type="button" class="dropdown-item" id="nav-dashboard">📊 Dashboard</button>
+                        <button type="button" class="dropdown-item" id="nav-editar">📝 Editar Lucros</button>
+                        <button type="button" class="dropdown-item" id="nav-config">⚙️ Configurações</button>
+                        <button type="button" class="dropdown-item logout" id="nav-logout">🚪 Sair</button>
                     </nav>
                 </div>
             </header>
 
-            <!-- Telas Internas -->
-            <main class="app-page active" id="page-inicio">
+            <div class="app-page active" id="page-inicio">
                 <div class="placeholder-card">
                     <h3>Tela Inicial</h3>
                     <p>Aqui entrarão os primeiros cards de lucro diário e hora.</p>
                 </div>
-            </main>
+            </div>
 
-            <main class="app-page" id="page-dashboard">
+            <div class="app-page" id="page-dashboard">
                 <div class="placeholder-card">
                     <h3>Dashboard Semanal</h3>
                     <p>Aqui entrará a grade de 7 dias e o gráfico de barras.</p>
                 </div>
-            </main>
+            </div>
 
-            <main class="app-page" id="page-editar">
+            <div class="app-page" id="page-editar">
                 <div class="placeholder-card">
                     <h3>Editar Lucros Avançado</h3>
                     <p>Aqui entrará o seletor de calendário e reset de semana.</p>
                 </div>
-            </main>
+            </div>
 
-            <main class="app-page" id="page-config">
+            <div class="app-page" id="page-config">
                 <div class="placeholder-card">
+                    <h3>Configurações</h3>
+                    <p>Configurações gerais do sistema.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= CONTROLE JAVASCRIPT ================= -->
+    <script>
+        let modoAtualAuth = 'login';
+
+        // Escutadores de evento puros para garantir compatibilidade móvel
