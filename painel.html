@@ -10,7 +10,7 @@
     <!-- Fundo invisível para fechar o menu ao clicar fora -->
     <div class="menu-overlay" id="overlay" onclick="toggleMenu()"></div>
 
-    <!-- Barra do Topo Fixa -->
+    <!-- Barra do Topo Fixa e Intocada -->
     <nav class="top-navbar">
         <div class="nav-left">
             <img src="assets/images/logo.png" alt="Logo" onerror="this.src='https://placehold.co'">
@@ -31,7 +31,7 @@
 
     <div class="dashboard-container">
         
-        <!-- ================= SEÇÃO 1: DASHBOARD (CARTÕES) ================= -->
+        <!-- ================= SEÇÃO 1: DASHBOARD (CARTÕES VERTICAIS DO SEU JEITO) ================= -->
         <div id="secao-dashboard">
             <div class="header-section">
                 <img class="logo-principal" src="assets/images/logo.png" alt="Vision Logo" onerror="this.src='https://placehold.co'">
@@ -40,24 +40,28 @@
             </div>
 
             <div class="stats-grid">
+                <!-- Lucro Diário -->
                 <div class="stat-card" onclick="focarInput()">
                     <div class="card-icon-box">📅</div>
                     <p>Lucro Diário</p>
                     <div class="value" id="lucro-diario">R$ 0,00</div>
                 </div>
                 
+                <!-- Lucro Semanal -->
                 <div class="stat-card" onclick="focarInput()">
                     <div class="card-icon-box">📅</div>
                     <p>Lucro Semanal</p>
                     <div class="value" id="lucro-semanal">R$ 0,00</div>
                 </div>
                 
+                <!-- Média Diária -->
                 <div class="stat-card">
                     <div class="card-icon-box">📊</div>
                     <p>Média Diária da Semana</p>
                     <div class="value" id="lucro-media" style="color: #0066ff;">R$ 0,00</div>
                 </div>
                 
+                <!-- Dia da Semana -->
                 <div class="stat-card">
                     <div class="card-icon-box">📅</div>
                     <p>Dia da Semana</p>
@@ -65,6 +69,7 @@
                     <div class="sub-text" id="data-texto">00-00-2026</div>
                 </div>
                 
+                <!-- Hora Atual -->
                 <div class="stat-card">
                     <div class="card-icon-box">🕒</div>
                     <p>Hora Atual</p>
@@ -73,9 +78,9 @@
                 </div>
             </div>
 
-            <!-- Formulário Rápido de Adicionar Lucro -->
+            <!-- Campo Adicionar Lucro Rápido -->
             <div class="action-card" id="card-faturamento">
-                <div class="action-title">🔲 Adicionar Lucro no Dia de Hoje</div>
+                <div class="action-title">🔲 Adicionar Lucro</div>
                 <div class="input-box">
                     <span>R$</span>
                     <input type="number" id="valor-input" placeholder="0,00" step="0.01" inputmode="decimal">
@@ -84,19 +89,19 @@
             </div>
         </div>
 
-        <!-- ================= SEÇÃO 2: EDITAR LUCROS (IDÊNTICO AO SEU PRINT) ================= -->
+        <!-- ================= SEÇÃO 2: TELA EXCLUSIVA DE EDIÇÃO (IGUAL AO SEU NOVO PRINT) ================= -->
         <div id="secao-editar-lucros" style="display: none;">
             <div class="action-title" style="font-size: 20px; font-weight: 700; margin-bottom: 4px;">📝 Editar Lucros</div>
             <p style="color: #666666; font-size: 13px; margin-bottom: 24px;">Altere ou exclua lucros registrados</p>
 
             <div class="action-card">
-                <!-- Filtro de Visualização -->
+                <!-- Filtro de Calendário -->
                 <div class="action-title" style="color: #666666; font-size: 11px; text-transform: uppercase;">📅 Selecione a Data:</div>
                 <div class="input-box">
                     <input type="date" id="calendario-consulta" onchange="consultarLucroData()">
                 </div>
 
-                <!-- Formulário de Inserção Específica -->
+                <!-- Formulário de Data e Valor -->
                 <div class="action-title" style="color: #666666; font-size: 11px; text-transform: uppercase; margin-top: 20px;">➕ Adicionar Lucro em Data Específica:</div>
                 <div class="input-box">
                     <input type="date" id="calendario-insercao">
@@ -107,12 +112,10 @@
                 </div>
 
                 <button type="button" class="btn-blue" onclick="salvarLucroDataEspecifica()">+ Adicionar Lucro</button>
-                
-                <!-- Botão Nova Semana igual ao print -->
                 <button type="button" class="btn-blue" style="background-color: #1a2333 !important; border: 1px solid #0066ff; margin-top: 12px;" onclick="iniciarNovaSemana()">🔄 Iniciar Nova Semana</button>
             </div>
 
-            <!-- Mensagem de feedback dinâmica abaixo do bloco -->
+            <!-- Feedback da data abaixo do bloco -->
             <div style="text-align: center; margin-top: 30px; color: #666666; font-size: 14px; font-style: italic;" id="status-consulta-texto">
                 Nenhum lucro encontrado nesta data
             </div>
@@ -121,11 +124,10 @@
     </div>
 
     <script>
-        // Sistema de Banco de Dados por Data (Chave: Valor)
         let registrosPorData = JSON.parse(localStorage.getItem('vision_datas_banco')) || {};
         document.getElementById('nomeUsuarioTopo').innerText = localStorage.getItem('vision_user') || "ADM-Vision";
 
-        // Define a data de hoje nos campos de calendário automaticamente ao abrir
+        // Preenche as datas com o dia de hoje por padrão
         const hojeISO = new Date().toISOString().split('T')[0];
         document.getElementById('calendario-consulta').value = hojeISO;
         document.getElementById('calendario-insercao').value = hojeISO;
@@ -138,7 +140,6 @@
             overlay.style.display = ativo ? 'none' : 'block';
         }
 
-        // Troca de telas completa solicitada
         function mostrarSecao(secao) {
             toggleMenu();
             if (secao === 'dashboard') {
@@ -159,11 +160,9 @@
             document.getElementById('valor-input').focus();
         }
 
-        // Consulta o banco de dados local para a data selecionada
         function consultarLucroData() {
             const dataSelecionada = document.getElementById('calendario-consulta').value;
             const textoStatus = document.getElementById('status-consulta-texto');
-            
             if (!dataSelecionada) return;
 
             if (registrosPorData[dataSelecionada] && registrosPorData[dataSelecionada] > 0) {
@@ -174,7 +173,6 @@
             }
         }
 
-        // Adiciona lucro no dia atual (TELA DASHBOARD)
         function adicionarDinheiroHoje() {
             const input = document.getElementById('valor-input');
             const val = parseFloat(input.value);
@@ -182,14 +180,13 @@
             
             const dataHoje = new Date().toISOString().split('T')[0];
             registrosPorData[dataHoje] = val;
-            
             input.value = '';
+            
             localStorage.setItem('vision_datas_banco', JSON.stringify(registrosPorData));
             alert("Lucro adicionado com sucesso!");
             atualizarTelas();
         }
 
-        // Salva lucro escolhendo uma data (TELA EDITAR LUCROS)
         function salvarLucroDataEspecifica() {
             const dataCampo = document.getElementById('calendario-insercao').value;
             const inputValor = document.getElementById('valor-especifico-input');
@@ -201,3 +198,9 @@
             registrosPorData[dataCampo] = val;
             inputValor.value = '';
             
+            localStorage.setItem('vision_datas_banco', JSON.stringify(registrosPorData));
+            alert("Lucro salvo para a data escolhida!");
+            consultarLucroData();
+        }
+
+        function iniciarNovaSemana() {
