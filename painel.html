@@ -7,200 +7,206 @@
     <link rel="stylesheet" href="design.css">
 </head>
 <body>
-    <!-- Fundo invisível para fechar o menu ao clicar fora -->
-    <div class="menu-overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="menu-overlay" id="overlay" onclick="fecharMenu()"></div>
 
-    <!-- Barra do Topo Fixa e Intocada -->
+    <!-- Barra do Topo Estável -->
     <nav class="top-navbar">
         <div class="nav-left">
             <img src="assets/images/logo.png" alt="Logo" onerror="this.src='https://placehold.co'">
             <span>Mediadores Vision</span>
         </div>
+        
         <div class="nav-right-area">
             <div class="user-name-display" id="nomeUsuarioTopo">ADM-Vision</div>
-            <button type="button" class="menu-dots-btn" onclick="toggleMenu()">⋮</button>
+            <button type="button" class="menu-dots-btn" onclick="abrirMenu(event)">⋮</button>
         </div>
-        
-        <!-- Menu Dropdown -->
-        <div class="dropdown-menu" id="meuDropdown">
-            <button type="button" class="dropdown-item" onclick="mostrarSecao('dashboard')">📊 Dashboard</button>
-            <button type="button" class="dropdown-item" onclick="mostrarSecao('editar')">📝 Editar Lucros</button>
-            <button type="button" class="dropdown-item" onclick="window.location.href='index.html'">↪️ Sair</button>
+
+        <!-- Menu Dropdown Simples -->
+        <div class="dropdown-menu" id="dropdownMenu">
+            <button class="dropdown-item" onclick="menuClick('inicio')">🏠 Início</button>
+            <button class="dropdown-item" onclick="menuClick('dashboard')">📊 Dashboard</button>
+            <button class="dropdown-item" onclick="menuClick('editar')">📝 Editar Lucros</button>
+            <button class="dropdown-item" onclick="menuClick('sair')">↪️ Sair</button>
         </div>
     </nav>
 
     <div class="dashboard-container">
         
-        <!-- ================= SEÇÃO 1: DASHBOARD (CARTÕES VERTICAIS DO SEU JEITO) ================= -->
-        <div id="secao-dashboard">
-            <div class="header-section">
-                <img class="logo-principal" src="assets/images/logo.png" alt="Vision Logo" onerror="this.src='https://placehold.co'">
-                <h2>Painel de Controle</h2>
-                <p>Gerencie seus lucros com profissionalismo</p>
+        <!-- Cabeçalho -->
+        <div class="header-section">
+            <img class="logo-principal" src="assets/images/logo.png" alt="Vision Logo" onerror="this.src='https://placehold.co'">
+            <h2>Painel de Controle</h2>
+            <p>Gerencie seus lucros com profissionalismo</p>
+        </div>
+
+        <!-- Fila Vertical de Cartões -->
+        <div class="stats-grid">
+            
+            <!-- 1. Lucro Diário -->
+            <div class="stat-card" onclick="focarInput()">
+                <div class="card-icon-box">📅</div>
+                <p>Lucro Diário</p>
+                <div class="value" id="lucro-diario">R$ 0,00</div>
             </div>
 
-            <div class="stats-grid">
-                <!-- Lucro Diário -->
-                <div class="stat-card" onclick="focarInput()">
-                    <div class="card-icon-box">📅</div>
-                    <p>Lucro Diário</p>
-                    <div class="value" id="lucro-diario">R$ 0,00</div>
-                </div>
-                
-                <!-- Lucro Semanal -->
-                <div class="stat-card" onclick="focarInput()">
-                    <div class="card-icon-box">📅</div>
-                    <p>Lucro Semanal</p>
-                    <div class="value" id="lucro-semanal">R$ 0,00</div>
-                </div>
-                
-                <!-- Média Diária -->
-                <div class="stat-card">
-                    <div class="card-icon-box">📊</div>
-                    <p>Média Diária da Semana</p>
-                    <div class="value" id="lucro-media" style="color: #0066ff;">R$ 0,00</div>
-                </div>
-                
-                <!-- Dia da Semana -->
-                <div class="stat-card">
-                    <div class="card-icon-box">📅</div>
-                    <p>Dia da Semana</p>
-                    <div class="value" id="dia-texto">...</div>
-                    <div class="sub-text" id="data-texto">00-00-2026</div>
-                </div>
-                
-                <!-- Hora Atual -->
-                <div class="stat-card">
-                    <div class="card-icon-box">🕒</div>
-                    <p>Hora Atual</p>
-                    <div class="value" id="relogio-texto">00:00:00</div>
-                    <div class="sub-text" id="tempo-restante">Calculando...</div>
-                </div>
+            <!-- 2. Lucro Semanal -->
+            <div class="stat-card" onclick="focarInput()">
+                <div class="card-icon-box">📅</div>
+                <p>Lucro Semanal</p>
+                <div class="value" id="lucro-semanal">R$ 0,00</div>
             </div>
 
-            <!-- Campo Adicionar Lucro Rápido -->
-            <div class="action-card" id="card-faturamento">
-                <div class="action-title">🔲 Adicionar Lucro</div>
-                <div class="input-box">
-                    <span>R$</span>
-                    <input type="number" id="valor-input" placeholder="0,00" step="0.01" inputmode="decimal">
-                </div>
-                <button type="button" class="btn-blue" onclick="adicionarDinheiroHoje()">+ Adicionar Lucro</button>
+            <!-- 3. Média Diária -->
+            <div class="stat-card">
+                <div class="card-icon-box">📊</div>
+                <p>Média Diária da Semana</p>
+                <div class="value" id="lucro-media" style="color: #0066ff;">R$ 0,00</div>
+            </div>
+
+            <!-- 4. Dia da Semana -->
+            <div class="stat-card">
+                <div class="card-icon-box">📅</div>
+                <p>Dia da Semana</p>
+                <div class="value" id="dia-texto">...</div>
+                <div class="sub-text" id="data-texto">00-00-2026</div>
+            </div>
+
+            <!-- 5. Hora Atual -->
+            <div class="stat-card">
+                <div class="card-icon-box">🕒</div>
+                <p>Hora Atual</p>
+                <div class="value" id="relogio-texto">00:00:00</div>
+                <div class="sub-text" id="tempo-restante">Faltam --h --min</div>
+            </div>
+
+        </div>
+
+        <!-- Painel de Edição de Dias (Abre na mesma tela de forma limpa) -->
+        <div id="bloco-editar-dias" style="display: none; flex-direction: column; gap: 8px; margin-bottom: 12px; background: #141414; padding: 16px; border-radius: 12px;">
+            <div class="action-title" style="font-size: 12px; font-weight: 600; margin-bottom: 12px;">📝 Clique no dia para alterar o valor:</div>
+            <div class="day-row-click" onclick="mudarValorDia(0)"><span>Segunda-feira</span><b id="d0">R$ 0,00</b></div>
+            <div class="day-row-click" onclick="mudarValorDia(1)"><span>Terça-feira</span><b id="d1">R$ 0,00</b></div>
+            <div class="day-row-click" onclick="mudarValorDia(2)"><span>Quarta-feira</span><b id="d2">R$ 0,00</b></div>
+            <div class="day-row-click" onclick="mudarValorDia(3)"><span>Quinta-feira</span><b id="d3">R$ 0,00</b></div>
+            <div class="day-row-click" onclick="mudarValorDia(4)"><span>Sexta-feira</span><b id="d4">R$ 0,00</b></div>
+            <div class="day-row-click" onclick="mudarValorDia(5)"><span>Sábado</span><b id="d5">R$ 0,00</b></div>
+            <div class="day-row-click" onclick="mudarValorDia(6)"><span>Domingo</span><b id="d6">R$ 0,00</b></div>
+            
+            <div class="action-title" style="margin-top:14px; font-size: 12px; font-weight: 600;">📅 Alterar por Data Específica:</div>
+            <div style="display:flex; gap:8px;">
+                <input type="date" id="campo-calendario" style="flex:1; padding:10px; background:#080808; border:1px solid #262626; color:white; border-radius:6px; outline:none;">
+                <button type="button" class="btn-blue" style="width:auto; padding:0 12px;" onclick="buscarCalendario()">Editar</button>
             </div>
         </div>
 
-        <!-- ================= SEÇÃO 2: TELA EXCLUSIVA DE EDIÇÃO (IGUAL AO SEU NOVO PRINT) ================= -->
-        <div id="secao-editar-lucros" style="display: none;">
-            <div class="action-title" style="font-size: 20px; font-weight: 700; margin-bottom: 4px;">📝 Editar Lucros</div>
-            <p style="color: #666666; font-size: 13px; margin-bottom: 24px;">Altere ou exclua lucros registrados</p>
-
-            <div class="action-card">
-                <!-- Filtro de Calendário -->
-                <div class="action-title" style="color: #666666; font-size: 11px; text-transform: uppercase;">📅 Selecione a Data:</div>
-                <div class="input-box">
-                    <input type="date" id="calendario-consulta" onchange="consultarLucroData()">
-                </div>
-
-                <!-- Formulário de Data e Valor -->
-                <div class="action-title" style="color: #666666; font-size: 11px; text-transform: uppercase; margin-top: 20px;">➕ Adicionar Lucro em Data Específica:</div>
-                <div class="input-box">
-                    <input type="date" id="calendario-insercao">
-                </div>
-                <div class="input-box">
-                    <span>R$</span>
-                    <input type="number" id="valor-especifico-input" placeholder="Valor (ex: 100,50)" step="0.01" inputmode="decimal">
-                </div>
-
-                <button type="button" class="btn-blue" onclick="salvarLucroDataEspecifica()">+ Adicionar Lucro</button>
-                <button type="button" class="btn-blue" style="background-color: #1a2333 !important; border: 1px solid #0066ff; margin-top: 12px;" onclick="iniciarNovaSemana()">🔄 Iniciar Nova Semana</button>
+        <!-- Campo Adicionar Valor Rápido -->
+        <div class="action-card">
+            <div class="action-title">🔲 Adicionar Lucro</div>
+            <div class="input-box">
+                <span>R$</span>
+                <input type="number" id="valor-input" placeholder="Valor do lucro (ex: 100,50)" step="0.01" inputmode="decimal">
             </div>
-
-            <!-- Feedback da data abaixo do bloco -->
-            <div style="text-align: center; margin-top: 30px; color: #666666; font-size: 14px; font-style: italic;" id="status-consulta-texto">
-                Nenhum lucro encontrado nesta data
-            </div>
+            <button type="button" class="btn-blue" onclick="adicionarDinheiroHoje()">+ Adicionar Lucro</button>
         </div>
 
     </div>
 
     <script>
-        let registrosPorData = JSON.parse(localStorage.getItem('vision_datas_banco')) || {};
-        document.getElementById('nomeUsuarioTopo').innerText = localStorage.getItem('vision_user') || "ADM-Vision";
+        let listaValores = JSON.parse(localStorage.getItem('vision_lucros')) ||;
+        const nomesDiasSemana = ["Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado", "Domingo"];
 
-        // Preenche as datas com o dia de hoje por padrão
-        const hojeISO = new Date().toISOString().split('T')[0];
-        document.getElementById('calendario-consulta').value = hojeISO;
-        document.getElementById('calendario-insercao').value = hojeISO;
+        const userSalvo = localStorage.getItem('vision_user') || "ADM-Vision";
+        document.getElementById('nomeUsuarioTopo').innerText = userSalvo;
 
-        function toggleMenu() {
-            const menu = document.getElementById('meuDropdown');
-            const overlay = document.getElementById('overlay');
-            const ativo = (menu.style.display === 'block');
-            menu.style.display = ativo ? 'none' : 'block';
-            overlay.style.display = ativo ? 'none' : 'block';
+        function abrirMenu(e) {
+            e.stopPropagation();
+            document.getElementById('dropdownMenu').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
         }
 
-        function mostrarSecao(secao) {
-            toggleMenu();
-            if (secao === 'dashboard') {
-                document.getElementById('secao-dashboard').style.display = 'block';
-                document.getElementById('secao-editar-lucros').style.display = 'none';
+        function fecharMenu() {
+            document.getElementById('dropdownMenu').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function menuClick(destino) {
+            fecharMenu();
+            if (destino === 'inicio' || destino === 'sair') {
+                window.location.href = 'index.html';
+            } else if (destino === 'dashboard') {
+                document.getElementById('bloco-editar-dias').style.display = 'none';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                atualizarTelas();
-            } else if (secao === 'editar') {
-                document.getElementById('secao-dashboard').style.display = 'none';
-                document.getElementById('secao-editar-lucros').style.display = 'block';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                consultarLucroData();
+            } else if (destino === 'editar') {
+                const painel = document.getElementById('bloco-editar-dias');
+                painel.style.display = 'flex';
+                painel.scrollIntoView({ behavior: 'smooth' });
             }
         }
 
         function focarInput() {
-            document.getElementById('card-faturamento').scrollIntoView({ behavior: 'smooth' });
             document.getElementById('valor-input').focus();
         }
 
-        function consultarLucroData() {
-            const dataSelecionada = document.getElementById('calendario-consulta').value;
-            const textoStatus = document.getElementById('status-consulta-texto');
-            if (!dataSelecionada) return;
+        function atualizarTelas() {
+            let total = 0;
+            let preenchidos = 0;
 
-            if (registrosPorData[dataSelecionada] && registrosPorData[dataSelecionada] > 0) {
-                const valorFormatado = registrosPorData[dataSelecionada].toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                textoStatus.innerHTML = `🟢 Lucro registrado nesta data: <strong style="color: #0066ff;">${valorFormatado}</strong>`;
-            } else {
-                textoStatus.innerText = "Nenhum lucro encontrado nesta data";
-            }
+            listaValores.forEach((val, i) => {
+                const elementoDia = document.getElementById('d' + i);
+                if(elementoDia) elementoDia.innerText = val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                total += val;
+                if (val > 0) preenchidos++;
+            });
+
+            let media = preenchidos > 0 ? (total / preenchidos) : 0;
+
+            let diaW = new Date().getDay();
+            let indexHoje = diaW === 0 ? 6 : diaW - 1;
+            let ganhoHoje = listaValores[indexHoje] || 0;
+
+            if(document.getElementById('lucro-diario')) document.getElementById('lucro-diario').innerText = ganhoHoje.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            if(document.getElementById('lucro-semanal')) document.getElementById('lucro-semanal').innerText = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            if(document.getElementById('lucro-media')) document.getElementById('lucro-media').innerText = media.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            localStorage.setItem('vision_lucros', JSON.stringify(listaValores));
         }
 
         function adicionarDinheiroHoje() {
             const input = document.getElementById('valor-input');
             const val = parseFloat(input.value);
-            if (isNaN(val) || val <= 0) return alert("Digite um valor válido.");
-            
-            const dataHoje = new Date().toISOString().split('T')[0];
-            registrosPorData[dataHoje] = val;
+
+            if (isNaN(val) || val <= 0) {
+                alert("Por favor, digite um valor correto.");
+                return;
+            }
+
+            let diaW = new Date().getDay();
+            let indexHoje = diaW === 0 ? 6 : diaW - 1;
+
+            listaValores[indexHoje] = val;
             input.value = '';
-            
-            localStorage.setItem('vision_datas_banco', JSON.stringify(registrosPorData));
-            alert("Lucro adicionado com sucesso!");
             atualizarTelas();
         }
 
-        function salvarLucroDataEspecifica() {
-            const dataCampo = document.getElementById('calendario-insercao').value;
-            const inputValor = document.getElementById('valor-especifico-input');
-            const val = parseFloat(inputValor.value);
-
-            if (!dataCampo) return alert("Selecione uma data!");
-            if (isNaN(val) || val <= 0) return alert("Digite um valor válido!");
-
-            registrosPorData[dataCampo] = val;
-            inputValor.value = '';
-            
-            localStorage.setItem('vision_datas_banco', JSON.stringify(registrosPorData));
-            alert("Lucro salvo para a data escolhida!");
-            consultarLucroData();
+        function mudarValorDia(index) {
+            let res = prompt("Alterar faturamento de " + nomesDiasSemana[index] + ":", listaValores[index]);
+            if (res !== null) {
+                let nVal = parseFloat(res.replace(',', '.'));
+                if (!isNaN(nVal) && nVal >= 0) {
+                    listaValores[index] = nVal;
+                    atualizarTelas();
+                }
+            }
         }
 
-        function iniciarNovaSemana() {
+        function buscarCalendario() {
+            const data = document.getElementById('campo-calendario').value;
+            if (!data) return;
+            let obj = new Date(data + "T00:00:00");
+            let idx = obj.getDay() === 0 ? 6 : obj.getDay() - 1;
+            mudarValorDia(idx);
+        }
+
+        function rodarRelogio() {
+            const dataObjeto = new Date();
+            if(document.getElementById('relogio-texto')) document.getElementById('relogio-texto').innerText = dataObjeto.toLocaleTimeString('pt-BR');
