@@ -11,6 +11,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -42,7 +43,7 @@
             max-width: 400px;
             padding: 35px 25px;
             border-radius: 20px;
-            border: 1px solid #0066ff; /* Borda Azul como solicitado */
+            border: 1px solid #0066ff; /* Borda Azul */
             text-align: center;
             box-shadow: 0px 0px 20px rgba(0, 102, 255, 0.1);
         }
@@ -72,7 +73,7 @@
 
         .auth-tab {
             flex: 1;
-            padding: 10px;
+            padding: 12px;
             color: #666d7a;
             font-weight: 600;
             font-size: 14px;
@@ -80,6 +81,7 @@
             cursor: pointer;
             border: none;
             background: none;
+            transition: all 0.2s ease;
         }
 
         .auth-tab.active {
@@ -108,7 +110,7 @@
             border-color: #0066ff;
         }
 
-        /* Ícones dos Inputs (Simulados em Texto por enquanto) */
+        /* Ícones dos Inputs */
         .input-icon {
             position: absolute;
             left: 14px;
@@ -213,7 +215,7 @@
         /* Paginação */
         .app-page { display: none; }
         .app-page.active { display: block; }
-        .placeholder-card { background: #121318; border: 1px solid #1c1e24; border-radius: 16px; padding: 40px 20px; text-align: center; color: #66677a; }
+        .placeholder-card { background: #121318; border: 1px solid #1c1e24; border-radius: 16px; padding: 40px 20px; text-align: center; color: #666d7a; }
     </style>
 </head>
 <body>
@@ -227,10 +229,10 @@
                 <img class="auth-logo" src="assets/images/logo.png" alt="Vision Logo" onerror="this.src='https://placehold.co'">
                 <h1>Mediadores Vision</h1>
 
-                <!-- Abas alternáveis -->
+                <!-- Abas alternáveis corrigidas -->
                 <div class="auth-tabs">
-                    <button class="auth-tab active" id="tab-login" onclick="mudarModoAuth('login')">Login</button>
-                    <button class="auth-tab" id="tab-cadastro" onclick="mudarModoAuth('cadastro')">Cadastrar</button>
+                    <button type="button" class="auth-tab active" id="tab-login" onclick="mudarModoAuth('login')">Login</button>
+                    <button type="button" class="auth-tab" id="tab-cadastro" onclick="mudarModoAuth('cadastro')">Cadastrar</button>
                 </div>
 
                 <!-- Formulário -->
@@ -252,7 +254,7 @@
         </div>
 
 
-        <!-- ================= APP PAINEL PRINCIPAL (SÓ CONECTA APÓS LOGIN) ================= -->
+        <!-- ================= APP PAINEL PRINCIPAL (SÓ APARECE APÓS LOGAR) ================= -->
         <div id="main-app">
             <header class="top-bar">
                 <div class="top-bar-left">
@@ -297,5 +299,3 @@
 
             <main class="app-page" id="page-config">
                 <div class="placeholder-card">
-                    <h3>Configurações</h3>
-                    <p>Configurações gerais do sistema.</p>
