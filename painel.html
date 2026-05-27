@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mediadores Vision - Painel</title>
+    <title>Mediadores Vision - Início</title>
     <style>
-        /* --- CONFIGURAÇÕES GERAIS --- */
         * {
             margin: 0;
             padding: 0;
@@ -15,301 +14,331 @@
         }
 
         body {
-            background-color: #0b0b0c;
+            background-color: #0d0e12;
             color: #ffffff;
             min-height: 100vh;
-            padding: 16px;
+            padding: 12px;
             display: flex;
             justify-content: center;
         }
 
         .container {
             width: 100%;
-            max-width: 500px;
-            position: relative;
+            max-width: 480px;
         }
 
-        /* --- BARRA SUPERIOR INSTITUCIONAL --- */
-        .top-bar {
+        /* --- CABEÇALHO TOPO --- */
+        .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px;
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 12px;
-            margin-bottom: 20px;
+            padding: 10px 4px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #1a1d26;
         }
 
-        .top-bar-left {
+        .header-brand {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .top-bar-left img {
-            width: 32px;
-            height: 32px;
+        .header-brand img {
+            width: 36px;
+            height: 36px;
             border-radius: 6px;
             object-fit: cover;
         }
 
-        .top-bar-left h2 { font-size: 15px; font-weight: 700; }
-        .top-bar-right { display: flex; align-items: center; gap: 12px; position: relative; }
-        .user-id { font-size: 13px; color: #666d7a; font-weight: 600; }
-        .btn-menu-trigger { background: none; border: none; color: #666d7a; font-size: 22px; cursor: pointer; padding: 0 4px; }
-
-        /* Menu de Opções Azul */
-        .dropdown-menu {
-            position: absolute;
-            top: 45px;
-            right: 0;
-            background-color: #121318;
-            border: 1px solid #0066ff;
-            border-radius: 12px;
-            width: 180px;
-            display: none;
-            flex-direction: column;
-            padding: 6px;
-            z-index: 100;
+        .header-brand h2 {
+            font-size: 16px;
+            font-weight: 700;
         }
 
-        .dropdown-item {
+        .header-right {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 12px;
+            position: relative;
+        }
+
+        .user-badge {
+            font-size: 13px;
+            color: #8a92a6;
+            font-weight: 600;
+        }
+
+        .menu-trigger {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* --- MENU FLUTUANTE RETANGULAR AZUL --- */
+        .dropdown-nav {
+            position: absolute;
+            top: 35px;
+            right: 0;
+            background-color: #16181f;
+            border: 1px solid #0066ff;
+            border-radius: 8px;
+            width: 170px;
+            display: none;
+            flex-direction: column;
+            padding: 4px;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
             color: #cbd5e1;
             font-size: 13px;
             font-weight: 600;
-            border: none;
-            background: transparent;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-            border-radius: 8px;
+            text-decoration: none;
+            border-radius: 6px;
         }
 
-        .dropdown-item:hover { background-color: #1c1e24; color: #0066ff; }
-        .dropdown-item.logout { color: #ff4444; border-top: 1px solid #1c1e24; }
+        .nav-item:hover {
+            background-color: #1f222e;
+            color: #0066ff;
+        }
 
-        /* Chaveamento de Páginas */
-        .app-page { display: none; }
-        .app-page.active { display: block; }
+        .nav-item.logout {
+            color: #ff4444;
+            border-top: 1px solid #1a1d26;
+            border-radius: 0;
+        }
 
         /* --- BANNER DE BOAS-VINDAS --- */
-        .banner-welcome {
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 16px;
-            padding: 20px;
+        .welcome-card {
+            background-color: #16181f;
+            border: 1px solid #232736;
+            border-radius: 12px;
+            padding: 16px;
             display: flex;
             align-items: center;
             gap: 16px;
             margin-bottom: 20px;
-            text-align: left;
         }
 
-        .banner-welcome img {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
+        .welcome-card img {
+            width: 65px;
+            height: 65px;
+            border-radius: 8px;
             object-fit: cover;
         }
 
-        .banner-text h3 { font-size: 19px; font-weight: 700; margin-bottom: 2px; }
-        .banner-text p { color: #666d7a; font-size: 12px; }
+        .welcome-text h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
 
-        /* --- CARDS DE DUAS COLUNAS COM ÍCONES INTERNOS --- */
-        .cards-grid {
+        .welcome-text p {
+            color: #666d7a;
+            font-size: 12px;
+        }
+
+        /* --- GRADE DOS QUATRO CARDS --- */
+        .grid-stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin-bottom: 20px;
         }
 
-        .card {
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 14px;
+        .stat-card {
+            background-color: #16181f;
+            border: 1px solid #232736;
+            border-radius: 12px;
             padding: 16px;
             display: flex;
             flex-direction: column;
-            position: relative;
         }
 
-        .card-icon-box {
-            width: 24px;
-            height: 24px;
+        .icon-square {
+            width: 28px;
+            height: 28px;
             background-color: rgba(0, 102, 255, 0.1);
             border-radius: 6px;
             display: flex;
             justify-content: center;
             align-items: center;
+            font-size: 13px;
+            margin-bottom: 12px;
             color: #0066ff;
-            font-size: 12px;
-            margin-bottom: 10px;
         }
 
-        .card-label {
-            color: #666d7a;
+        .stat-label {
+            color: #5c626e;
             font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
-        .card-value { font-size: 20px; font-weight: 700; color: #ffffff; }
-        .card-sub { color: #666d7a; font-size: 11px; margin-top: 2px; }
-
-        /* --- ENTRADAS DE DADOS E SEÇÕES --- */
-        .section-title {
-            font-size: 12px;
+        .stat-main {
+            font-size: 18px;
             font-weight: 700;
-            color: #666d7a;
+        }
+
+        .stat-sub {
+            font-size: 11px;
+            color: #0066ff;
+            margin-top: 4px;
+        }
+
+        /* --- SEÇÕES DE ENTRADA --- */
+        .block-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
             margin-bottom: 8px;
-            text-transform: uppercase;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .input-block-container {
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 10px;
-            padding: 14px;
+        .input-money-row {
+            background-color: #16181f;
+            border: 1px solid #232736;
+            border-radius: 8px;
+            padding: 12px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 14px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
-        .input-block-container span { color: #0066ff; font-weight: 700; }
-        .input-block-container input {
+
+        .input-money-row span {
+            color: #0066ff;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .input-money-row input {
             background: transparent;
             border: none;
             outline: none;
-            color: white;
+            color: #ffffff;
             width: 100%;
             font-size: 14px;
         }
 
-        .btn-blue-primary {
+        /* --- BOTÕES DO PADRÃO FORMULÁRIO --- */
+        .btn-full-blue {
             width: 100%;
             padding: 14px;
             background-color: #0066ff;
             border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             text-align: center;
             margin-bottom: 20px;
         }
 
-        .btn-red-secondary {
+        .btn-full-clear {
             width: 100%;
-            padding: 14px;
-            background-color: #ff4444;
-            border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
+            padding: 12px;
+            background-color: rgba(0, 102, 255, 0.1);
+            border: 1px solid #0066ff;
+            border-radius: 8px;
+            color: #0066ff; /* Alterado de vermelho para o azul do sistema */
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
-        .btn-gray-navigation {
+        .btn-full-nav {
             width: 100%;
-            padding: 14px;
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
+            padding: 12px;
+            background-color: #16181f;
+            border: 1px solid #232736;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             text-align: center;
         }
-
-        /* --- SEÇÃO DE DASHBOARD --- */
-        .weekly-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .day-card {
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 10px;
-            padding: 12px 8px;
-            text-align: center;
-        }
-        .day-card h4 { font-size: 10px; font-weight: 700; color: #ffffff; text-transform: uppercase; }
-        .day-card span { font-size: 9px; color: #666d7a; display: block; margin: 2px 0 6px 0; }
-        .day-card p { font-size: 13px; font-weight: 700; color: #0066ff; }
-
-        .chart-box {
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 14px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .chart-placeholder {
-            height: 60px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            padding: 10px 20px 0 20px;
-            border-bottom: 1px solid #1c1e24;
-            margin-top: 15px;
-        }
-        .chart-bar { width: 14px; background-color: #0066ff; border-radius: 3px 3px 0 0; height: 10%; transition: height 0.5s ease; }
-        .chart-labels { display: flex; justify-content: space-between; padding: 6px 16px 0 16px; font-size: 9px; color: #666d7a; }
-
-        /* --- SEÇÃO EDITAR LUCROS --- */
-        .edit-card-box {
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .info-log-text { text-align: center; color: #666d7a; font-size: 13px; margin-top: 25px; font-style: italic; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- BARRA FIXA SUPERIOR -->
-        <header class="top-bar">
-            <div class="top-bar-left">
+        <!-- BARRA DO TOPO -->
+        <header class="header-top">
+            <div class="header-brand">
                 <img src="assets/images/logo.png" alt="Vision Logo">
                 <h2>Mediadores Vision</h2>
             </div>
-            <div class="top-bar-right">
-                <span class="user-id" id="exibir-id">Usuario</span>
-                <button type="button" class="btn-menu-trigger" onclick="alternarMenu(event)">⋮</button>
+            <div class="header-right">
+                <span class="user-badge" id="txt-user-id">222</span>
+                <button type="button" class="menu-trigger" onclick="toggleMenu(event)">⋮</button>
                 
-                <nav class="dropdown-menu" id="menuFlutuante">
-                    <div class="dropdown-item" onclick="mudarTela('inicio')">🏠 Início</div>
-                    <div class="dropdown-item" onclick="mudarTela('dashboard')">📊 Dashboard</div>
-                    <div class="dropdown-item" onclick="mudarTela('editar')">📝 Editar Lucros</div>
-                    <div class="dropdown-item logout" onclick="deslogar()">🚪 Sair</div>
+                <nav class="dropdown-nav" id="boxMenu">
+                    <a href="painel.html" class="nav-item">🏠 Início</a>
+                    <a href="dashboard.html" class="nav-item">📊 Dashboard</a>
+                    <a href="editar.html" class="nav-item">📝 Editar Lucros</a>
+                    <a href="#" class="nav-item logout" onclick="deslogar()">🚪 Sair</a>
                 </nav>
             </div>
         </header>
 
-        <!-- ================= 1. TELA DE INÍCIO ================= -->
-        <div class="app-page active" id="page-inicio">
-            <div class="banner-welcome">
-                <img src="assets/images/logo.png" alt="Vision Logo Large">
-                <div class="banner-text">
+        <!-- BANNER PRINCIPAL COM IMAGEM -->
+        <div class="welcome-card">
+            <img src="assets/images/logo.png" alt="Logo Interno">
+            <div class="welcome-text">
+                <h3>Painel de Controle</h3>
+                <p>Gerencie seus lucros com profissionalismo</p>
+            </div>
+        </div>
+
+        <!-- GRADE COM OS QUATRO CARDS DE DADOS -->
+        <div class="grid-stats">
+            <div class="stat-card">
+                <div class="icon-square">📅</div>
+                <div class="stat-label">Lucro Diário</div>
+                <div class="stat-main" id="lbl-lucro-dia">R$ 0,00</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon-square">💰</div>
+                <div class="stat-label">Lucro Semanal</div>
+                <div class="stat-main" id="lbl-lucro-semana">R$ 0,00</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon-square">📅</div>
+                <div class="stat-label">Dia da Semana</div>
+                <div class="stat-main" id="lbl-dia-nome">Carregando...</div>
+                <div class="stat-sub" id="lbl-data-hoje">00-00-2026</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon-square">🕒</div>
+                <div class="stat-label">Hora Atual</div>
+                <div class="stat-main" id="lbl-hora-tempo">00:00:00</div>
+                <div class="stat-sub" id="lbl-contagem-regressiva">Faltam 00h 00min</div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO ADICIONAR LUCRO -->
+        <div class="block-title">✪ Adicionar Lucro</div>
+        <div class="input-money-row">
+            <span>$</span>
+            <input type="number" id="txt-valor-inserir" placeholder="Valor do lucro (ex: 100,50)" step="0.01">
+        </div>
+        <button type="button" class="btn-full-blue" onclick="adicionarMoneys()">+ Adicionar Lucro</button>
+
+        <!-- SEÇÃO AÇÕES RÁPIDAS -->
+        <div class="block-title">🔄 Ações Rápidas</div>
+        <button type="button" class="btn-full-clear" onclick="limparRegistrosSemana()">🔄 Zerar Semana</button>
