@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediadores Vision - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #0d0e12;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 12px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            position: relative;
+        }
+
+        /* --- CABEÇALHO TOPO --- */
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 4px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #1a1d26;
+            position: relative;
+        }
+
+        .header-brand h2 { font-size: 16px; font-weight: 700; }
+        .header-right { display: flex; align-items: center; gap: 12px; position: relative; z-index: 1010; }
+        .user-badge { font-size: 13px; color: #8a92a6; font-weight: 600; }
+        .menu-trigger { background: none; border: none; color: #ffffff; font-size: 24px; cursor: pointer; padding: 8px 12px; }
+
+        /* Menu de Opções Azul */
+        .dropdown-nav {
+            position: absolute;
+            top: 45px;
+            right: 0;
+            background-color: #16181f;
+            border: 1px solid #0066ff;
+            border-radius: 8px;
+            width: 170px;
+            display: none;
+            flex-direction: column;
+            padding: 4px;
+            z-index: 1050;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .nav-item:hover { background-color: #1f222e; color: #0066ff; }
+        .nav-item.logout { color: #ff4444; border-top: 1px solid #1a1d26; border-radius: 0; }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        /* --- GRADE DOS 7 DIAS (FOTO 3) --- */
+        .weekly-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .day-card {
+            background-color: #16181f;
+            border: 1px solid #232736;
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+        }
+
+        .day-card h4 { font-size: 11px; font-weight: 700; color: #ffffff; text-transform: uppercase; }
+        .day-card span { font-size: 9px; color: #666d7a; display: block; margin: 2px 0 6px 0; }
+        .day-card p { font-size: 13px; font-weight: 700; color: #0066ff; }
+
+        /* --- CARDS DE ESTATÍSTICAS --- */
+        .grid-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-card {
+            background-color: #16181f;
+            border: 1px solid #232736;
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label { color: #5c626e; font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+        .stat-main { font-size: 16px; font-weight: 700; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- TOPO BARRA -->
+        <header class="header-top">
+            <div class="header-brand">
+                <h2>Mediadores Vision</h2>
+            </div>
+            <div class="header-right">
+                <span class="user-badge" id="txt-user-id">---</span>
+                <button type="button" class="menu-trigger" onclick="toggleMenu(event)">⋮</button>
+                
+                <nav class="dropdown-nav" id="boxMenu">
+                    <a href="painel.html" class="nav-item">🏠 Início</a>
+                    <a href="dashboard.html" class="nav-item">📊 Dashboard</a>
+                    <a href="editar.html" class="nav-item">📝 Editar Lucros</a>
+                    <a href="index.html" class="nav-item logout" onclick="deslogar()">🚪 Sair</a>
+                </nav>
+            </div>
+        </header>
+
+        <div class="section-title">📊 Dashboard Semanal</div>
+
+        <!-- GRADE DOS 7 DIAS DA SUA FOTO 3 -->
+        <div class="weekly-grid">
+            <div class="day-card"><h4>Qui</h4><span class="d-qui">28/05</span><p id="v-qui">R$ 0,00</p></div>
+            <div class="day-card"><h4>Sex</h4><span class="d-sex">29/05</span><p id="v-sex">R$ 0,00</p></div>
+            <div class="day-card"><h4>Sáb</h4><span class="d-sab">30/05</span><p id="v-sab">R$ 0,00</p></div>
+            <div class="day-card"><h4>Dom</h4><span class="d-dom">31/05</span><p id="v-dom">R$ 0,00</p></div>
+            <div class="day-card"><h4>Seg</h4><span class="d-seg">01/06</span><p id="v-seg">R$ 0,00</p></div>
+            <div class="day-card"><h4>Ter</h4><span class="d-ter">02/06</span><p id="v-ter">R$ 0,00</p></div>
+            <div class="day-card"><h4>Qua</h4><span class="d-qua">03/06</span><p id="v-qua">R$ 0,00</p></div>
+        </div>
+
+        <!-- METRICAS RESUMIDAS DA SUA FOTO 3 -->
+        <div class="grid-stats">
+            <div class="stat-card">
+                <div class="stat-label">Média Diária</div>
+                <div class="stat-main" id="dash-media">R$ 0,00</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Melhor Dia</div>
+                <div class="stat-main" id="dash-melhor">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Semana</div>
+                <div class="stat-main" id="dash-total">R$ 0,00</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Dias Com Lucro</div>
+                <div class="stat-main" id="dash-freq">0 / 7</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chavesDias = ["dom", "seg", "ter", "qua", "qui", "sex", "sab"];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const sessao = localStorage.getItem('sessao_vision') || "Usuário";
+            document.getElementById('txt-user-id').innerText = sessao;
+
+            carregarMetricasDashboard();
+        });
+
+        function carregarMetricasDashboard() {
+            const user = localStorage.getItem('sessao_vision') || "padrao";
+            const lucros = JSON.parse(localStorage.getItem('banco_lucros_' + user)) || {
+                dom: 0, seg: 0, ter: 0, qua: 0, qui: 0, sex: 0, sab: 0
+            };
+
+            const totalSemana = Object.values(lucros).reduce((a, b) => a + b, 0);
+            let diasComLucro = 0;
+            let maiorValor = 0;
+            let melhorDiaNome = "-";
+
+            const nomesTraduzidos = { qui: "Quinta", sex: "Sexta", sab: "Sábado", dom: "Domingo", seg: "Segunda", ter: "Terça", qua: "Quarta" };
+
+            Object.keys(lucros).forEach(diaKey => {
+                const val = lucros[diaKey];
+                const txtEl = document.getElementById('v-' + diaKey);
+                if (txtEl) txtEl.innerText = "R$ " + val.toFixed(2).replace('.', ',');
+
+                if (val > 0) diasComLucro++;
+                if (val > maiorValor) {
+                    maiorValor = val;
+                    melhorDiaNome = nomesTraduzidos[diaKey] || "-";
+                }
+            });
+
+            document.getElementById('dash-total').innerText = "R$ " + totalSemana.toFixed(2).replace('.', ',');
+            document.getElementById('dash-media').innerText = "R$ " + (totalSemana / 7).toFixed(2).replace('.', ',');
+            document.getElementById('dash-freq').innerText = diasComLucro + " / 7";
+            document.getElementById('dash-melhor').innerText = melhorDiaNome;
+        }
+
+        function toggleMenu(e) {
+            e.stopPropagation();
+            const m = document.getElementById('boxMenu');
+            m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        window.addEventListener('click', () => { document.getElementById('boxMenu').style.display = 'none'; });
+    </script>
+</body>
+</html>

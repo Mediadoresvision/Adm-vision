@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mediadores Vision - Login</title>
+    <title>Mediadores Vision - Autenticação</title>
     <style>
         * {
             margin: 0;
@@ -23,10 +23,14 @@
             align-items: center;
         }
 
+        .container {
+            width: 100%;
+            max-width: 440px;
+        }
+
         .auth-card {
             background: #121318;
             width: 100%;
-            max-width: 400px;
             padding: 35px 25px;
             border-radius: 20px;
             border: 1px solid #0066ff;
@@ -43,7 +47,7 @@
             display: block;
         }
 
-        h1 {
+        .auth-card h1 {
             font-size: 22px;
             font-weight: 700;
             margin-bottom: 25px;
@@ -54,7 +58,7 @@
             background: #1c1e24;
             padding: 4px;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .auth-tab {
@@ -112,80 +116,79 @@
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <div class="auth-card">
-        <img class="auth-logo" src="assets/images/logo.png" alt="Vision Logo">
-        <h1>Mediadores Vision</h1>
+    <div class="container">
+        <div class="auth-card">
+            <!-- Puxa a logo da pasta local -->
+            <img class="auth-logo" src="logo.png" onerror="this.src='https://placehold.co'">
+            <h1>Mediadores Vision</h1>
 
-        <div class="auth-tabs">
-            <div class="auth-tab active" id="tab-login" onclick="mudarModo('login')">Login</div>
-            <div class="auth-tab" id="tab-cadastro" onclick="mudarModo('cadastro')">Cadastrar</div>
-        </div>
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="tab-login" onclick="mudarAbas('login')">Login</div>
+                <div class="auth-tab" id="tab-cadastro" onclick="mudarAbas('cadastro')">Cadastrar</div>
+            </div>
 
-        <div>
-            <div class="input-group">
-                <span class="input-icon">👤</span>
-                <input type="text" id="auth-user" placeholder="Usuário">
+            <div>
+                <div class="input-group">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="auth-user" placeholder="Usuário">
+                </div>
+                <div class="input-group">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="auth-pass" placeholder="Senha">
+                </div>
+                
+                <button type="button" class="btn-auth-submit" id="btn-text" onclick="entrarSistema()">➔ Entrar</button>
             </div>
-            <div class="input-group">
-                <span class="input-icon">🔒</span>
-                <input type="password" id="auth-pass" placeholder="Senha">
-            </div>
-            
-            <button type="button" class="btn-auth-submit" id="btn-auth-text" onclick="autenticar()">➔ Entrar</button>
         </div>
     </div>
 
     <script>
-        let modoAtual = 'login';
+        let modo = 'login';
 
-        function mudarModo(modo) {
-            modoAtual = modo;
+        function mudarAbas(tipo) {
+            modo = tipo;
             document.getElementById('tab-login').classList.remove('active');
             document.getElementById('tab-cadastro').classList.remove('active');
             
-            if (modo === 'login') {
+            if (tipo === 'login') {
                 document.getElementById('tab-login').classList.add('active');
-                document.getElementById('btn-auth-text').innerText = '➔ Entrar';
+                document.getElementById('btn-text').innerText = '➔ Entrar';
             } else {
                 document.getElementById('tab-cadastro').classList.add('active');
-                document.getElementById('btn-auth-text').innerText = '➔ Criar Conta';
+                document.getElementById('btn-text').innerText = '➔ Criar Conta';
             }
         }
 
-        function autenticar() {
-            const usuario = document.getElementById('auth-user').value.trim();
-            const senha = document.getElementById('auth-pass').value.trim();
+        function entrarSistema() {
+            const user = document.getElementById('auth-user').value.trim();
+            const pass = document.getElementById('auth-pass').value.trim();
 
-            if (!usuario || !senha) {
-                alert("Por favor, preencha todos os campos!");
-                return;
-            }
+            if (!user || !pass) return alert("Preencha todos os campos!");
 
-            if (modoAtual === 'cadastro') {
-                // Salva os dados no navegador
-                localStorage.setItem('user_vision_' + usuario, senha);
-                alert("Conta '" + usuario + "' criada com sucesso!\n\nAgora clique na aba 'Login' para entrar.");
-                mudarModo('login');
+            if (modo === 'cadastro') {
+                localStorage.setItem('user_vision_' + user, pass);
+                alert("Conta '" + user + "' criada!\nMude para a aba 'Login' para acessar.");
+                mudarAbas('login');
             } else {
-                // Verifica os dados para entrar
-                const senhaSalva = localStorage.getItem('user_vision_' + usuario);
-                if (senhaSalva && senhaSalva === senha) {
-                    localStorage.setItem('sessao_vision', usuario);
-                    // Redireciona diretamente para o arquivo do painel
+                const senhaSalva = localStorage.getItem('user_vision_' + user);
+                if (senhaSalva && senhaSalva === pass) {
+                    localStorage.setItem('sessao_vision', user);
                     window.location.href = "painel.html";
                 } else {
-                    alert("Usuário ou senha incorretos!\nSe você acabou de se cadastrar, verifique se selecionou a aba Login.");
+                    alert("Usuário ou senha incorretos!");
                 }
             }
         }
 
-        // Se o usuário já tiver feito login antes, manda direto para o painel
         window.addEventListener('DOMContentLoaded', () => {
             if (localStorage.getItem('sessao_vision')) {
                 window.location.href = "painel.html";

@@ -25,6 +25,7 @@
         .container {
             width: 100%;
             max-width: 480px;
+            position: relative;
         }
 
         /* --- CABEÇALHO TOPO --- */
@@ -35,30 +36,18 @@
             padding: 10px 4px;
             margin-bottom: 16px;
             border-bottom: 1px solid #1a1d26;
-        }
-
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header-brand img {
-            width: 36px;
-            height: 36px;
-            border-radius: 6px;
-            object-fit: cover;
+            position: relative;
         }
 
         .header-brand h2 { font-size: 16px; font-weight: 700; }
-        .header-right { display: flex; align-items: center; gap: 10px; position: relative; }
+        .header-right { display: flex; align-items: center; gap: 12px; position: relative; z-index: 1010; }
         .user-badge { font-size: 13px; color: #8a92a6; font-weight: 600; }
-        .menu-trigger { background: none; border: none; color: #ffffff; font-size: 20px; cursor: pointer; }
+        .menu-trigger { background: none; border: none; color: #ffffff; font-size: 24px; cursor: pointer; padding: 8px 12px; }
 
         /* Menu de Opções Azul */
         .dropdown-nav {
             position: absolute;
-            top: 35px;
+            top: 45px;
             right: 0;
             background-color: #16181f;
             border: 1px solid #0066ff;
@@ -67,14 +56,15 @@
             display: none;
             flex-direction: column;
             padding: 4px;
-            z-index: 1000;
+            z-index: 1050;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
         }
 
         .nav-item {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 12px;
+            padding: 12px;
             color: #cbd5e1;
             font-size: 13px;
             font-weight: 600;
@@ -90,9 +80,10 @@
             font-weight: 700;
             color: #ffffff;
             margin-bottom: 14px;
+            text-transform: uppercase;
         }
 
-        /* --- CARD DE EDIÇÃO --- */
+        /* --- CARD DE EDIÇÃO (FOTO 4) --- */
         .edit-box {
             background-color: #16181f;
             border: 1px solid #232736;
@@ -143,10 +134,8 @@
             border: none;
             border-radius: 8px;
             color: #ffffff;
-            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            text-align: center;
             margin-bottom: 12px;
         }
 
@@ -157,10 +146,8 @@
             border: 1px solid #0066ff;
             border-radius: 8px;
             color: #0066ff;
-            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            text-align: center;
         }
 
         .log-feedback {
@@ -178,25 +165,24 @@
         <!-- TOPO BARRA -->
         <header class="header-top">
             <div class="header-brand">
-                <img src="assets/images/logo.png" alt="Vision Logo">
                 <h2>Mediadores Vision</h2>
             </div>
             <div class="header-right">
-                <span class="user-badge" id="txt-user-id">222</span>
+                <span class="user-badge" id="txt-user-id">---</span>
                 <button type="button" class="menu-trigger" onclick="toggleMenu(event)">⋮</button>
                 
                 <nav class="dropdown-nav" id="boxMenu">
                     <a href="painel.html" class="nav-item">🏠 Início</a>
                     <a href="dashboard.html" class="nav-item">📊 Dashboard</a>
                     <a href="editar.html" class="nav-item">📝 Editar Lucros</a>
-                    <a href="#" class="nav-item logout" onclick="deslogar()">🚪 Sair</a>
+                    <a href="index.html" class="nav-item logout" onclick="deslogar()">🚪 Sair</a>
                 </nav>
             </div>
         </header>
 
         <div class="section-title">📝 Editar Lucros</div>
 
-        <!-- FORMULÁRIO DE EDIÇÃO POR DATA -->
+        <!-- FORMULÁRIO DE EDIÇÃO POR DATA DA SUA FOTO 4 -->
         <div class="edit-box">
             <div class="input-label">📅 Selecione a Data:</div>
             <div class="input-row">
@@ -224,8 +210,7 @@
         let carteiraValores = {};
 
         window.addEventListener('DOMContentLoaded', () => {
-            const sessao = localStorage.getItem('sessao_vision');
-            if (!sessao) { window.location.href = "index.html"; return; }
+            const sessao = localStorage.getItem('sessao_vision') || "Usuário";
             document.getElementById('txt-user-id').innerText = sessao;
 
             const hoje = new Date();
@@ -235,7 +220,7 @@
         });
 
         function carregarBancoGeral() {
-            const user = localStorage.getItem('sessao_vision');
+            const user = localStorage.getItem('sessao_vision') || "padrao";
             carteiraValores = JSON.parse(localStorage.getItem('banco_lucros_' + user)) || {
                 dom: 0, seg: 0, ter: 0, qua: 0, qui: 0, sex: 0, sab: 0
             };
@@ -275,16 +260,20 @@
 
             const objData = new Date(dataEscolhida + 'T00:00:00');
             const idDia = chavesDias[objData.getDay()];
-            const user = localStorage.getItem('sessao_vision');
+            const user = localStorage.getItem('sessao_vision') || "padrao";
 
             carteiraValores[idDia] = valorInformado;
             localStorage.setItem('banco_lucros_' + user, JSON.stringify(carteiraValores));
 
             checarFaturamentoData();
-            alert("Faturamento updated!");
+            alert("Faturamento atualizado com sucesso!");
             document.getElementById('calendar-money-value').value = '';
         }
 
         function reiniciarTudo() {
             if (confirm("Deseja realmente iniciar uma nova semana? Todos os dias voltarão a R$ 0,00.")) {
-                const user = localStorage.getItem('sessao_vision');
+                const user = localStorage.getItem('sessao_vision') || "padrao";
+                carteiraValores = { dom: 0, seg: 0, ter: 0, qua: 0, qui: 0, sex: 0, sab: 0 };
+                localStorage.setItem('banco_lucros_' + user, JSON.stringify(carteiraValores));
+                checarFaturamentoData();
+                alert("Novo ciclo iniciado!");

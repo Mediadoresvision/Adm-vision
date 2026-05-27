@@ -25,9 +25,10 @@
         .container {
             width: 100%;
             max-width: 480px;
+            position: relative;
         }
 
-        /* --- CABEÇALHO TOPO --- */
+        /* --- CABEÇALHO TOPO REESTRUTURADO --- */
         .header-top {
             display: flex;
             justify-content: space-between;
@@ -35,51 +36,49 @@
             padding: 10px 4px;
             margin-bottom: 16px;
             border-bottom: 1px solid #1a1d26;
-        }
-
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header-brand img {
-            width: 36px;
-            height: 36px;
-            border-radius: 6px;
-            object-fit: cover;
-        }
-
-        .header-brand h2 {
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
             position: relative;
         }
 
-        .user-badge {
-            font-size: 13px;
-            color: #8a92a6;
-            font-weight: 600;
+        /* Garante que o texto ocupe apenas o espaço necessário */
+        .header-brand {
+            max-width: 70%;
         }
 
+        .header-brand h2 { 
+            font-size: 16px; 
+            font-weight: 700; 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Isolamento total da área direita do botão */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            z-index: 1010; /* Fica por cima de tudo */
+        }
+        
+        .user-badge { font-size: 13px; color: #8a92a6; font-weight: 600; }
+
+        /* Aumentado a área de clique do botão */
         .menu-trigger {
             background: none;
             border: none;
             color: #ffffff;
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
+            padding: 8px 12px; /* Área de toque maior para o dedo */
+            display: inline-block;
+            line-height: 1;
         }
 
-        /* --- MENU FLUTUANTE RETANGULAR AZUL --- */
+        /* MENU FLUTUANTE RETANGULAR AZUL */
         .dropdown-nav {
             position: absolute;
-            top: 35px;
+            top: 45px;
             right: 0;
             background-color: #16181f;
             border: 1px solid #0066ff;
@@ -88,19 +87,21 @@
             display: none;
             flex-direction: column;
             padding: 4px;
-            z-index: 1000;
+            z-index: 1050; /* Fica acima de todas as camadas */
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
         }
 
         .nav-item {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 12px;
+            padding: 12px;
             color: #cbd5e1;
             font-size: 13px;
             font-weight: 600;
             text-decoration: none;
             border-radius: 6px;
+            cursor: pointer;
         }
 
         .nav-item:hover {
@@ -119,30 +120,12 @@
             background-color: #16181f;
             border: 1px solid #232736;
             border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
+            padding: 24px 16px;
             margin-bottom: 20px;
+            text-align: center;
         }
-
-        .welcome-card img {
-            width: 65px;
-            height: 65px;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
-        .welcome-text h3 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-
-        .welcome-text p {
-            color: #666d7a;
-            font-size: 12px;
-        }
+        .welcome-text h3 { font-size: 20px; font-weight: 700; }
+        .welcome-text p { color: #666d7a; font-size: 12px; margin-top: 4px; }
 
         /* --- GRADE DOS QUATRO CARDS --- */
         .grid-stats {
@@ -161,53 +144,23 @@
             flex-direction: column;
         }
 
-        .icon-row-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .icon-square {
-            width: 24px;
-            height: 24px;
-            background-color: rgba(0, 102, 255, 0.15);
-            border-radius: 6px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 13px;
-            color: #0066ff;
-        }
-
         .stat-label {
             color: #5c626e;
             font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 4px;
         }
 
-        .stat-main {
-            font-size: 18px;
-            font-weight: 700;
-        }
+        .stat-main { font-size: 18px; font-weight: 700; margin-top: 4px; }
+        .stat-sub { font-size: 11px; color: #0066ff; margin-top: 4px; }
 
-        .stat-sub {
-            font-size: 11px;
-            color: #0066ff;
-            margin-top: 4px;
-        }
-
-        /* --- SEÇÕES DE ENTRADA --- */
         .block-title {
             font-size: 13px;
             font-weight: 700;
             color: #ffffff;
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            text-transform: uppercase;
         }
 
         .input-money-row {
@@ -221,22 +174,15 @@
             margin-bottom: 12px;
         }
 
-        .input-money-row span {
-            color: #0066ff;
-            font-weight: 700;
-            font-size: 14px;
-        }
-
+        .input-money-row span { color: #0066ff; font-weight: 700; }
         .input-money-row input {
             background: transparent;
             border: none;
             outline: none;
             color: #ffffff;
             width: 100%;
-            font-size: 14px;
         }
 
-        /* --- BOTÕES DO PADRÃO FORMULÁRIO --- */
         .btn-full-blue {
             width: 100%;
             padding: 14px;
@@ -244,38 +190,20 @@
             border: none;
             border-radius: 8px;
             color: #ffffff;
-            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         .btn-full-clear {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background-color: rgba(0, 102, 255, 0.1);
             border: 1px solid #0066ff;
             border-radius: 8px;
             color: #0066ff;
-            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            text-align: center;
-            margin-bottom: 12px;
-        }
-
-        .btn-full-nav {
-            width: 100%;
-            padding: 14px;
-            background-color: #16181f;
-            border: 1px solid #232736;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
         }
     </style>
 </head>
@@ -285,62 +213,89 @@
         <!-- BARRA DO TOPO -->
         <header class="header-top">
             <div class="header-brand">
-                <img src="assets/images/logo.png" alt="Vision Logo">
                 <h2>Mediadores Vision</h2>
             </div>
             <div class="header-right">
-                <span class="user-badge" id="txt-user-id">222</span>
+                <span class="user-badge" id="txt-user-id">---</span>
+                <!-- Área de toque totalmente livre e ampliada -->
                 <button type="button" class="menu-trigger" onclick="toggleMenu(event)">⋮</button>
                 
                 <nav class="dropdown-nav" id="boxMenu">
                     <a href="painel.html" class="nav-item">🏠 Início</a>
                     <a href="dashboard.html" class="nav-item">📊 Dashboard</a>
                     <a href="editar.html" class="nav-item">📝 Editar Lucros</a>
-                    <a href="#" class="nav-item logout" onclick="deslogar()">🚪 Sair</a>
+                    <a href="index.html" class="nav-item logout" onclick="deslogar()">🚪 Sair</a>
                 </nav>
             </div>
         </header>
 
-        <!-- BANNER PRINCIPAL COM IMAGEM -->
+        <!-- BANNER DE BOAS-VINDAS -->
         <div class="welcome-card">
-            <img src="assets/images/logo.png" alt="Logo Interno">
             <div class="welcome-text">
                 <h3>Painel de Controle</h3>
                 <p>Gerencie seus lucros com profissionalismo</p>
             </div>
         </div>
 
-        <!-- GRADE COM OS QUATRO CARDS DE DADOS -->
+        <!-- GRADE DOS QUATRO CARDS -->
         <div class="grid-stats">
             <div class="stat-card">
-                <div class="icon-row-container"><div class="icon-square">📅</div></div>
                 <div class="stat-label">Lucro Diário</div>
                 <div class="stat-main" id="lbl-lucro-dia">R$ 0,00</div>
             </div>
             <div class="stat-card">
-                <div class="icon-row-container"><div class="icon-square">💰</div></div>
+                <div class="icon-square" style="display:none;"></div>
                 <div class="stat-label">Lucro Semanal</div>
                 <div class="stat-main" id="lbl-lucro-semana">R$ 0,00</div>
             </div>
             <div class="stat-card">
-                <div class="icon-row-container"><div class="icon-square">📅</div></div>
-                <div class="stat-label">Dia da Semana</div>
-                <div class="stat-main" id="lbl-dia-nome">Carregando...</div>
-                <div class="stat-sub" id="lbl-data-hoje">00-00-2026</div>
+                <div class="stat-label">Média Diária</div>
+                <div class="stat-main" id="lbl-media-dia">R$ 0,00</div>
             </div>
             <div class="stat-card">
-                <div class="icon-row-container"><div class="icon-square">🕒</div></div>
-                <div class="stat-label">Hora Atual</div>
-                <div class="stat-main" id="lbl-hora-tempo">00:00:00</div>
-                <div class="stat-sub" id="lbl-contagem-regressiva">Faltam 00h 00min</div>
+                <div class="stat-label">Dias com Lucro</div>
+                <div class="stat-main" id="lbl-dias-lucro">0 / 7</div>
             </div>
         </div>
 
-        <!-- SEÇÃO ADICIONAR LUCRO -->
         <div class="block-title">✪ Adicionar Lucro</div>
         <div class="input-money-row">
             <span>$</span>
             <input type="number" id="txt-valor-inserir" placeholder="Valor do lucro (ex: 100,50)" step="0.01">
         </div>
         <button type="button" class="btn-full-blue" onclick="adicionarMoneys()">+ Adicionar Lucro</button>
+        <button type="button" class="btn-full-clear" onclick="limparRegistrosSemana()">🔄 Zerar Semana</button>
+    </div>
 
+    <script>
+        const chavesDias = ["dom", "seg", "ter", "qua", "qui", "sex", "sab"];
+        let carteiraValores = {};
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const sessao = localStorage.getItem('sessao_vision') || "Usuário";
+            document.getElementById('txt-user-id').innerText = sessao;
+            puxarMemoriaNavegador();
+        });
+
+        function puxarMemoriaNavegador() {
+            const user = localStorage.getItem('sessao_vision') || "padrao";
+            carteiraValores = JSON.parse(localStorage.getItem('banco_lucros_' + user)) || {
+                dom: 0, seg: 0, ter: 0, qua: 0, qui: 0, sex: 0, sab: 0
+            };
+            
+            const idHoje = chavesDias[new Date().getDay()];
+            
+            document.getElementById('lbl-lucro-dia').innerText = "R$ " + (carteiraValores[idHoje] || 0).toFixed(2).replace('.', ',');
+            
+            const total = Object.values(carteiraValores).reduce((a, b) => a + b, 0);
+            document.getElementById('lbl-lucro-semana').innerText = "R$ " + total.toFixed(2).replace('.', ',');
+            
+            const media = total / 7;
+            document.getElementById('lbl-media-dia').innerText = "R$ " + media.toFixed(2).replace('.', ',');
+            
+            let frequencia = 0;
+            Object.values(carteiraValores).forEach(val => { if(val > 0) frequencia++; });
+            document.getElementById('lbl-dias-lucro').innerText = frequencia + " / 7";
+        }
+
+        function adicionarMoneys() {
