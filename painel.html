@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mediadores Vision - Painel</title>
+    <title>Mediadores Vision - Painel de Controle</title>
     <style>
+        /* Configurações Gerais de Cores (Tema Escuro e Azul) */
         * {
             margin: 0;
             padding: 0;
@@ -24,286 +25,212 @@
         .container {
             width: 100%;
             max-width: 500px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             position: relative;
         }
 
-        /* Topo */
-        .header-logo {
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 25px;
+        /* --- BARRA TOPO FIXA --- */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background-color: #121318;
+            border: 1px solid #1c1e24;
+            border-radius: 12px;
+            margin-bottom: 20px;
         }
 
-        .header-logo img {
-            width: 90px;
-            height: 90px;
-            border-radius: 12px;
-            border: 1px solid #1f222a;
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-bar-left img {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
             object-fit: cover;
         }
 
-        .header-logo h1 {
-            font-size: 20px;
+        .top-bar-left h2 {
+            font-size: 16px;
             font-weight: 700;
-            margin-top: 12px;
         }
 
-        .header-logo p {
-            color: #666d7a;
-            font-size: 13px;
-            margin-top: 4px;
-        }
-
-        /* Grid de Cards */
-        .cards-grid {
-            width: 100%;
+        .top-bar-right {
             display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .card {
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 16px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+            align-items: center;
+            gap: 12px;
             position: relative;
         }
 
-        /* Linha superior interna do Card */
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 4px;
+        .user-id {
+            font-size: 13px;
+            color: #666d7a;
         }
 
-        .card-header svg {
-            width: 22px;
-            height: 22px;
-            fill: #2f80ed;
-        }
-
-        /* Botão de 3 Pontos */
-        .btn-menu {
+        .btn-menu-trigger {
             background: none;
             border: none;
-            color: #5c626e;
-            font-size: 20px;
+            color: #666d7a;
+            font-size: 22px;
             cursor: pointer;
             padding: 0 4px;
-            line-height: 1;
         }
 
-        .btn-menu:hover {
-            color: #ffffff;
+        /* --- MENU FLUTUANTE (AZUL) --- */
+        .dropdown-menu {
+            position: absolute;
+            top: 45px;
+            right: 0;
+            background-color: #121318;
+            border: 1px solid #0066ff; /* Borda Azul como você pediu */
+            border-radius: 12px;
+            width: 180px;
+            display: none; /* Escondido por padrão */
+            flex-direction: column;
+            padding: 6px;
+            z-index: 100;
         }
 
-        .card-label {
-            color: #5c626e;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .card-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .card-value.blue {
-            color: #2f80ed;
-        }
-
-        .card-sub {
-            color: #5c626e;
-            font-size: 12px;
-            margin-top: 2px;
-        }
-
-        /* Janela Flutuante (Modal) de Ajuste de Lucros */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            display: none;
-            justify-content: center;
+        .dropdown-item {
+            display: flex;
             align-items: center;
-            padding: 16px;
-            z-index: 1000;
+            gap: 10px;
+            padding: 10px 12px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 8px;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
         }
 
-        .modal-box {
+        .dropdown-item:hover {
+            background-color: #1c1e24;
+            color: #0066ff;
+        }
+
+        .dropdown-item.logout {
+            color: #ff4444;
+            border-top: 1px solid #1c1e24;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* --- SEÇÕES DAS TELAS --- */
+        .app-page {
+            display: none; /* Esconde todas as telas inicialmente */
+        }
+
+        .app-page.active {
+            display: block; /* Mostra apenas a tela ativa */
+        }
+
+        /* Card temporário para teste */
+        .placeholder-card {
             background: #121318;
             border: 1px solid #1c1e24;
             border-radius: 16px;
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-        }
-
-        .modal-box h3 {
-            font-size: 18px;
-            margin-bottom: 16px;
-            font-weight: 700;
-        }
-
-        .table-lucros {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-            max-height: 300px;
-            overflow-y: auto;
-            padding-right: 4px;
-        }
-
-        .row-lucro {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #1c1e24;
-            padding: 8px 12px;
-            border-radius: 8px;
-        }
-
-        .row-lucro label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #cbd5e1;
-        }
-
-        .row-lucro input {
-            background: #0b0b0c;
-            border: 1px solid #2d3139;
-            border-radius: 6px;
-            color: #ffffff;
-            padding: 6px 10px;
-            width: 120px;
-            text-align: right;
-            outline: none;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-modal {
-            flex: 1;
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .btn-modal.save {
-            background: #2f80ed;
-            color: white;
-        }
-
-        .btn-modal.cancel {
-            background: #1c1e24;
-            color: #5c626e;
+            padding: 40px 20px;
+            text-align: center;
+            color: #666d7a;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Logo e Títulos Principais -->
-        <div class="header-logo">
-            <img src="assets/images/logo.png" alt="Vision Logo" onerror="this.src='https://placehold.co'">
-            <h1>Painel de Controle</h1>
-            <p>Gerencie seus lucros com profissionalismo</p>
-        </div>
-
-        <!-- Lista de Cards Vertical -->
-        <div class="cards-grid">
-            
-            <!-- Lucro Diário -->
-            <div class="card">
-                <div class="card-header">
-                    <!-- Ícone Calendário SVG (Não Quebra) -->
-                    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
-                    <button class="btn-menu" onclick="abrirModal()">⋮</button>
-                </div>
-                <div class="card-label">Lucro Diário</div>
-                <div class="card-value" id="val-lucro-diario">R$ 0,00</div>
+        
+        <!-- Barra de Topo que nunca muda -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <!-- Sua imagem existente configurada abaixo -->
+                <img src="assets/images/logo.png" alt="Vision Logo" onerror="this.src='https://placehold.co'">
+                <h2>Mediadores Vision</h2>
             </div>
-
-            <!-- Lucro Semanal -->
-            <div class="card">
-                <div class="card-header">
-                    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
-                    <button class="btn-menu" onclick="abrirModal()">⋮</button>
-                </div>
-                <div class="card-label">Lucro Semanal</div>
-                <div class="card-value" id="val-lucro-semanal">R$ 0,00</div>
+            <div class="top-bar-right">
+                <span class="user-id">222</span>
+                <button class="btn-menu-trigger" onclick="alternarMenu()">⋮</button>
+                
+                <!-- Menu de Opções Azul -->
+                <nav class="dropdown-menu" id="menuFlutuante">
+                    <button class="dropdown-item" onclick="mudarTela('inicio')">🏠 Início</button>
+                    <button class="dropdown-item" onclick="mudarTela('dashboard')">📊 Dashboard</button>
+                    <button class="dropdown-item" onclick="mudarTela('editar')">📝 Editar Lucros</button>
+                    <button class="dropdown-item" onclick="mudarTela('config')">⚙️ Configurações</button>
+                    <button class="dropdown-item logout" onclick="alert('Saindo...')">🚪 Sair</button>
+                </nav>
             </div>
+        </header>
 
-            <!-- Média Diária -->
-            <div class="card">
-                <div class="card-header">
-                    <!-- Ícone Gráfico SVG -->
-                    <svg viewBox="0 0 24 24"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
-                    <button class="btn-menu" onclick="abrirModal()">⋮</button>
-                </div>
-                <div class="card-label">Média Diária da Semana</div>
-                <div class="card-value blue" id="val-media-diaria">R$ 0,00</div>
+        <!-- AREA DAS TELAS DINÂMICAS -->
+        
+        <!-- 1. TELA INÍCIO -->
+        <main class="app-page active" id="page-inicio">
+            <div class="placeholder-card">
+                <h3>Tela Inicial</h3>
+                <p>Aqui entrarão os primeiros cards de lucro diário e hora.</p>
             </div>
+        </main>
 
-            <!-- Dia da Semana / Data -->
-            <div class="card">
-                <div class="card-header">
-                    <svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
-                </div>
-                <div class="card-label">Dia da Semana</div>
-                <div class="card-value" id="txt-dia-semana">Carregando...</div>
-                <div class="card-sub" id="txt-data-completa">00/00/2026</div>
+        <!-- 2. TELA DASHBOARD SEMANAL -->
+        <main class="app-page" id="page-dashboard">
+            <div class="placeholder-card">
+                <h3>Dashboard Semanal</h3>
+                <p>Aqui entrará a grade de 7 dias e o gráfico de barras.</p>
             </div>
+        </main>
 
-            <!-- Hora Atual / Contador -->
-            <div class="card">
-                <div class="card-header">
-                    <!-- Ícone Relógio SVG -->
-                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8s8 3.58 8 8s-3.58 8-8 8zm.5-13H11v6l5.25 3.15l.75-1.23l-4.5-2.67z"/></svg>
-                </div>
-                <div class="card-label">Hora Atual</div>
-                <div class="card-value" id="txt-hora-atual">00:00:00</div>
-                <div class="card-sub" id="txt-tempo-restante">Calculando tempo restante...</div>
+        <!-- 3. TELA EDITAR LUCROS -->
+        <main class="app-page" id="page-editar">
+            <div class="placeholder-card">
+                <h3>Editar Lucros Avançado</h3>
+                <p>Aqui entrará o seletor de calendário e reset de semana.</p>
             </div>
+        </main>
 
-        </div>
+        <!-- 4. TELA CONFIGURAÇÕES -->
+        <main class="app-page" id="page-config">
+            <div class="placeholder-card">
+                <h3>Configurações</h3>
+                <p>Configurações gerais do sistema.</p>
+            </div>
+        </main>
+
     </div>
 
-    <!-- Janela de Configuração de Lucros -->
-    <div class="modal-overlay" id="modalLucros">
-        <div class="modal-box">
-            <h3>Adicionar Lucros da Semana</h3>
-            <div class="table-lucros">
-                <div class="row-lucro"><label>Segunda</label><input type="number" id="inp-seg" step="0.01" value="0"></div>
-                <div class="row-lucro"><label>Terça</label><input type="number" id="inp-ter" step="0.01" value="0"></div>
-                <div class="row-lucro"><label>Quarta</label><input type="number" id="inp-qua" step="0.01" value="0"></div>
-                <div class="row-lucro"><label>Quinta</label><input type="number" id="inp-qui" step="0.01" value="0"></div>
-                <div class="row-lucro"><label>Sexta</label><input type="number" id="inp-sex" step="0.01" value="0"></div>
-                <div class="row-lucro"><label>Sábado</label><input type="number" id="inp-sab" step="0.01" value="0"></div>
-                <div class="row-lucro"><label>Domingo</label><input type="number" id="inp-dom" step="0.01" value="0"></div>
-            </div>
-            <div class="modal-actions">
-                <button class="btn-modal cancel" onclick="fecharModal()">Cancelar</button>
-                <button class="btn-modal save" onclick="salvarLucros()">Salvar Lucros</button>
+    <script>
+        // Função para abrir e fechar o menu de 3 pontinhos
+        function alternarMenu() {
+            const menu = document.getElementById('menuFlutuante');
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Função inteligente para trocar de tela sem recarregar a página
+        function mudarTela(idTela) {
+            // Esconde todas as páginas
+            document.querySelectorAll('.app-page').forEach(pagina => {
+                pagina.classList.remove('active');
+            });
+            
+            // Mostra apenas a página clicada
+            document.getElementById(`page-${idTela}`).classList.add('active');
+            
+            // Fecha o menu automaticamente após clicar
+            document.getElementById('menuFlutuante').style.display = 'none';
+        }
+
+        // Fecha o menu se o usuário clicar em qualquer lugar fora dele
+        window.onclick = function(event) {
+            if (!event.target.matches('.btn-menu-trigger')) {
+                document.getElementById('menuFlutuante').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
