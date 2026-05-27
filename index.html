@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mediadores Vision - Sistema</title>
+    <title>Mediadores Vision - Login</title>
     <style>
-        /* --- CONFIGURAÇÕES GERAIS --- */
         * {
             margin: 0;
             padding: 0;
@@ -22,19 +21,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            position: relative;
-        }
-
-        /* --- TELA DE AUTENTICAÇÃO --- */
-        #auth-screen {
-            display: flex;
-            width: 100%;
-            justify-content: center;
         }
 
         .auth-card {
@@ -57,7 +43,7 @@
             display: block;
         }
 
-        .auth-card h1 {
+        h1 {
             font-size: 22px;
             font-weight: 700;
             margin-bottom: 25px;
@@ -79,8 +65,7 @@
             font-size: 14px;
             border-radius: 6px;
             cursor: pointer;
-            border: none;
-            background: transparent;
+            text-align: center;
         }
 
         .auth-tab.active {
@@ -127,206 +112,85 @@
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             margin-top: 20px;
-        }
-
-        /* --- AREA DO PAINEL PRINCIPAL --- */
-        #main-app {
-            display: none;
-            width: 100%;
-        }
-
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        .top-bar-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .top-bar-left img {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            object-fit: cover;
-        }
-
-        .top-bar-left h2 { font-size: 16px; font-weight: 700; }
-        .top-bar-right { display: flex; align-items: center; gap: 12px; position: relative; }
-        .user-id { font-size: 13px; color: #666d7a; }
-        .btn-menu-trigger { background: none; border: none; color: #666d7a; font-size: 22px; cursor: pointer; padding: 0 4px; }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 45px;
-            right: 0;
-            background-color: #121318;
-            border: 1px solid #0066ff;
-            border-radius: 12px;
-            width: 180px;
-            display: none;
-            flex-direction: column;
-            padding: 6px;
-            z-index: 100;
-        }
-
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            color: #cbd5e1;
-            font-size: 13px;
-            font-weight: 600;
-            border: none;
-            background: transparent;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-        }
-
-        .dropdown-item:hover { background-color: #1c1e24; color: #0066ff; }
-        .dropdown-item.logout { color: #ff4444; border-top: 1px solid #1c1e24; }
-
-        .app-page { display: none; }
-        .app-page.active { display: block; }
-
-        .banner-welcome {
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 16px;
-            padding: 25px 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .banner-welcome h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-        .banner-welcome p { color: #666d7a; font-size: 13px; }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .card {
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 14px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .card-label {
-            color: #666d7a;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .card-value { font-size: 20px; font-weight: 700; color: #ffffff; }
-        .card-sub { color: #666d7a; font-size: 11px; }
-
-        .section-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #666d7a;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .input-money-container {
-            background-color: #121318;
-            border: 1px solid #1c1e24;
-            border-radius: 8px;
-            padding: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        .input-money-container span { color: #0066ff; font-weight: 700; }
-        .input-money-container input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: white;
-            width: 100%;
-            font-size: 14px;
-        }
-
-        .btn-action-blue {
-            width: 100%;
-            padding: 14px;
-            background-color: #0066ff;
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <!-- ================= TELA DE LOGIN / CADASTRO ================= -->
-        <div id="auth-screen">
-            <div class="auth-card">
-                <img class="auth-logo" src="assets/images/logo.png" alt="Vision Logo">
-                <h1>Mediadores Vision</h1>
+    <div class="auth-card">
+        <img class="auth-logo" src="assets/images/logo.png" alt="Vision Logo">
+        <h1>Mediadores Vision</h1>
 
-                <div class="auth-tabs">
-                    <div class="auth-tab active" id="tab-login" onclick="mudarModoAuth('login')">Login</div>
-                    <div class="auth-tab" id="tab-cadastro" onclick="mudarModoAuth('cadastro')">Cadastrar</div>
-                </div>
-
-                <div>
-                    <div class="input-group">
-                        <span class="input-icon">👤</span>
-                        <input type="text" id="auth-user" placeholder="Usuário">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-icon">🔒</span>
-                        <input type="password" id="auth-pass" placeholder="Senha">
-                    </div>
-                    
-                    <button type="button" class="btn-auth-submit" id="btn-auth-text" onclick="executarAutenticacao()">➔ Entrar</button>
-                </div>
-            </div>
+        <div class="auth-tabs">
+            <div class="auth-tab active" id="tab-login" onclick="mudarModo('login')">Login</div>
+            <div class="auth-tab" id="tab-cadastro" onclick="mudarModo('cadastro')">Cadastrar</div>
         </div>
 
-        <!-- ================= APP PAINEL PRINCIPAL ================= -->
-        <div id="main-app">
-            <header class="top-bar">
-                <div class="top-bar-left">
-                    <img src="assets/images/logo.png" alt="Vision Logo">
-                    <h2>Mediadores Vision</h2>
-                </div>
-                <div class="top-bar-right">
-                    <span class="user-id" id="exibir-id">222</span>
-                    <button type="button" class="btn-menu-trigger" onclick="alternarMenu(event)">⋮</button>
-                    
-                    <nav class="dropdown-menu" id="menuFlutuante">
-                        <div class="dropdown-item" onclick="mudarTela('inicio')">🏠 Início</div>
-                        <div class="dropdown-item" onclick="mudarTela('dashboard')">📊 Dashboard</div>
-                        <div class="dropdown-item" onclick="mudarTela('editar')">📝 Editar Lucros</div>
-                        <div class="dropdown-item logout" onclick="deslogarSistema()">🚪 Sair</div>
-                    </nav>
+        <div>
+            <div class="input-group">
+                <span class="input-icon">👤</span>
+                <input type="text" id="auth-user" placeholder="Usuário">
+            </div>
+            <div class="input-group">
+                <span class="input-icon">🔒</span>
+                <input type="password" id="auth-pass" placeholder="Senha">
+            </div>
+            
+            <button type="button" class="btn-auth-submit" id="btn-auth-text" onclick="autenticar()">➔ Entrar</button>
+        </div>
+    </div>
+
+    <script>
+        let modoAtual = 'login';
+
+        function mudarModo(modo) {
+            modoAtual = modo;
+            document.getElementById('tab-login').classList.remove('active');
+            document.getElementById('tab-cadastro').classList.remove('active');
+            
+            if (modo === 'login') {
+                document.getElementById('tab-login').classList.add('active');
+                document.getElementById('btn-auth-text').innerText = '➔ Entrar';
+            } else {
+                document.getElementById('tab-cadastro').classList.add('active');
+                document.getElementById('btn-auth-text').innerText = '➔ Criar Conta';
+            }
+        }
+
+        function autenticar() {
+            const usuario = document.getElementById('auth-user').value.trim();
+            const senha = document.getElementById('auth-pass').value.trim();
+
+            if (!usuario || !senha) {
+                alert("Por favor, preencha todos os campos!");
+                return;
+            }
+
+            if (modoAtual === 'cadastro') {
+                // Salva os dados no navegador
+                localStorage.setItem('user_vision_' + usuario, senha);
+                alert("Conta '" + usuario + "' criada com sucesso!\n\nAgora clique na aba 'Login' para entrar.");
+                mudarModo('login');
+            } else {
+                // Verifica os dados para entrar
+                const senhaSalva = localStorage.getItem('user_vision_' + usuario);
+                if (senhaSalva && senhaSalva === senha) {
+                    localStorage.setItem('sessao_vision', usuario);
+                    // Redireciona diretamente para o arquivo do painel
+                    window.location.href = "painel.html";
+                } else {
+                    alert("Usuário ou senha incorretos!\nSe você acabou de se cadastrar, verifique se selecionou a aba Login.");
+                }
+            }
+        }
+
+        // Se o usuário já tiver feito login antes, manda direto para o painel
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('sessao_vision')) {
+                window.location.href = "painel.html";
+            }
+        });
+    </script>
+</body>
+</html>
