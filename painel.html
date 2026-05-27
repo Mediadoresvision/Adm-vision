@@ -27,6 +27,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
 
         /* Topo */
@@ -72,12 +73,36 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
+            position: relative;
         }
 
-        .card img.icon {
-            width: 24px;
-            height: 24px;
+        /* Linha superior interna do Card */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 4px;
+        }
+
+        .card-header svg {
+            width: 22px;
+            height: 22px;
+            fill: #2f80ed;
+        }
+
+        /* Botão de 3 Pontos */
+        .btn-menu {
+            background: none;
+            border: none;
+            color: #5c626e;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0 4px;
+            line-height: 1;
+        }
+
+        .btn-menu:hover {
+            color: #ffffff;
         }
 
         .card-label {
@@ -103,6 +128,98 @@
             font-size: 12px;
             margin-top: 2px;
         }
+
+        /* Janela Flutuante (Modal) de Ajuste de Lucros */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background: #121318;
+            border: 1px solid #1c1e24;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .modal-box h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .table-lucros {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .row-lucro {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1c1e24;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .row-lucro label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        .row-lucro input {
+            background: #0b0b0c;
+            border: 1px solid #2d3139;
+            border-radius: 6px;
+            color: #ffffff;
+            padding: 6px 10px;
+            width: 120px;
+            text-align: right;
+            outline: none;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-modal {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-modal.save {
+            background: #2f80ed;
+            color: white;
+        }
+
+        .btn-modal.cancel {
+            background: #1c1e24;
+            color: #5c626e;
+        }
     </style>
 </head>
 <body>
@@ -120,28 +237,41 @@
             
             <!-- Lucro Diário -->
             <div class="card">
-                <img class="icon" src="https://icons8.com" alt="Calendário">
+                <div class="card-header">
+                    <!-- Ícone Calendário SVG (Não Quebra) -->
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+                    <button class="btn-menu" onclick="abrirModal()">⋮</button>
+                </div>
                 <div class="card-label">Lucro Diário</div>
-                <div class="card-value">R$ 0,00</div>
+                <div class="card-value" id="val-lucro-diario">R$ 0,00</div>
             </div>
 
             <!-- Lucro Semanal -->
             <div class="card">
-                <img class="icon" src="https://icons8.com" alt="Calendário">
+                <div class="card-header">
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+                    <button class="btn-menu" onclick="abrirModal()">⋮</button>
+                </div>
                 <div class="card-label">Lucro Semanal</div>
-                <div class="card-value">R$ 0,00</div>
+                <div class="card-value" id="val-lucro-semanal">R$ 0,00</div>
             </div>
 
             <!-- Média Diária -->
             <div class="card">
-                <img class="icon" src="https://icons8.com" alt="Gráfico">
+                <div class="card-header">
+                    <!-- Ícone Gráfico SVG -->
+                    <svg viewBox="0 0 24 24"><path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/></svg>
+                    <button class="btn-menu" onclick="abrirModal()">⋮</button>
+                </div>
                 <div class="card-label">Média Diária da Semana</div>
-                <div class="card-value blue">R$ 0,00</div>
+                <div class="card-value blue" id="val-media-diaria">R$ 0,00</div>
             </div>
 
             <!-- Dia da Semana / Data -->
             <div class="card">
-                <img class="icon" src="https://icons8.com" alt="Calendário">
+                <div class="card-header">
+                    <svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+                </div>
                 <div class="card-label">Dia da Semana</div>
                 <div class="card-value" id="txt-dia-semana">Carregando...</div>
                 <div class="card-sub" id="txt-data-completa">00/00/2026</div>
@@ -149,7 +279,10 @@
 
             <!-- Hora Atual / Contador -->
             <div class="card">
-                <img class="icon" src="https://icons8.com" alt="Relógio">
+                <div class="card-header">
+                    <!-- Ícone Relógio SVG -->
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8s8 3.58 8 8s-3.58 8-8 8zm.5-13H11v6l5.25 3.15l.75-1.23l-4.5-2.67z"/></svg>
+                </div>
                 <div class="card-label">Hora Atual</div>
                 <div class="card-value" id="txt-hora-atual">00:00:00</div>
                 <div class="card-sub" id="txt-tempo-restante">Calculando tempo restante...</div>
@@ -158,46 +291,19 @@
         </div>
     </div>
 
-    <script>
-        function atualizarPainel() {
-            const agora = new Date();
-
-            // 1. Configuração de Dias da Semana
-            const diasSemana = [
-                "Domingo", "Segunda-feira", "Terça-feira", 
-                "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"
-            ];
-            
-            // 2. Atualiza Dia e Data Sem Bugs
-            document.getElementById('txt-dia-semana').innerText = diasSemana[agora.getDay()];
-            
-            const dia = String(agora.getDate()).padStart(2, '0');
-            const mes = String(agora.getMonth() + 1).padStart(2, '0');
-            const ano = agora.getFullYear();
-            document.getElementById('txt-data-completa').innerText = `${dia}/${mes}/${ano}`;
-
-            // 3. Atualiza o Relógio Digital em Tempo Real
-            const horas = String(agora.getHours()).padStart(2, '0');
-            const minutos = String(agora.getMinutes()).padStart(2, '0');
-            const segundos = String(agora.getSeconds()).padStart(2, '0');
-            document.getElementById('txt-hora-atual').innerText = `${horas}:${minutos}:${segundos}`;
-
-            // 4. Calcula Quanto Falta Para Acabar o Dia (Faltam Xh Xmin)
-            const totalMinutosDoDia = 24 * 60;
-            const minutosAtuais = (agora.getHours() * 60) + agora.getMinutes();
-            const minutosRestantes = totalMinutosDoDia - minutosAtuais;
-
-            const horasFaltando = Math.floor(minutosRestantes / 60);
-            const minutosFaltando = minutosRestantes % 60;
-
-            document.getElementById('txt-tempo-restante').innerText = `Faltam ${horasFaltando}h ${minutosFaltando}min para virar o dia`;
-        }
-
-        // Executa a função imediatamente ao carregar a página
-        atualizarPainel();
-        
-        // Atualiza o relógio a cada 1 segundo (1000 milissegundos) de forma contínua
-        setInterval(atualizarPainel, 1000);
-    </script>
-</body>
-</html>
+    <!-- Janela de Configuração de Lucros -->
+    <div class="modal-overlay" id="modalLucros">
+        <div class="modal-box">
+            <h3>Adicionar Lucros da Semana</h3>
+            <div class="table-lucros">
+                <div class="row-lucro"><label>Segunda</label><input type="number" id="inp-seg" step="0.01" value="0"></div>
+                <div class="row-lucro"><label>Terça</label><input type="number" id="inp-ter" step="0.01" value="0"></div>
+                <div class="row-lucro"><label>Quarta</label><input type="number" id="inp-qua" step="0.01" value="0"></div>
+                <div class="row-lucro"><label>Quinta</label><input type="number" id="inp-qui" step="0.01" value="0"></div>
+                <div class="row-lucro"><label>Sexta</label><input type="number" id="inp-sex" step="0.01" value="0"></div>
+                <div class="row-lucro"><label>Sábado</label><input type="number" id="inp-sab" step="0.01" value="0"></div>
+                <div class="row-lucro"><label>Domingo</label><input type="number" id="inp-dom" step="0.01" value="0"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal cancel" onclick="fecharModal()">Cancelar</button>
+                <button class="btn-modal save" onclick="salvarLucros()">Salvar Lucros</button>
