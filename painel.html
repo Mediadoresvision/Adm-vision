@@ -97,7 +97,7 @@
         .app-page { display: none; }
         .app-page.active { display: block; }
 
-        /* --- BANNER DE BOAS-VINDAS (FOTO 2) --- */
+        /* --- BANNER DE BOAS-VINDAS --- */
         .banner-welcome {
             background-color: #121318;
             border: 1px solid #1c1e24;
@@ -211,19 +211,32 @@
 
         .btn-red-secondary {
             width: 100%;
-            padding: 12px;
-            background-color: rgba(255, 68, 68, 0.1);
-            border: 1px solid #ff4444;
+            padding: 14px;
+            background-color: #ff4444;
+            border: none;
             border-radius: 10px;
-            color: #ff4444;
-            font-size: 13px;
+            color: white;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
-        /* --- SEÇÃO DE DASHBOARD (FOTO 3) --- */
+        .btn-gray-navigation {
+            width: 100%;
+            padding: 14px;
+            background-color: #121318;
+            border: 1px solid #1c1e24;
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        /* --- SEÇÃO DE DASHBOARD --- */
         .weekly-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -262,7 +275,7 @@
         .chart-bar { width: 14px; background-color: #0066ff; border-radius: 3px 3px 0 0; height: 10%; transition: height 0.5s ease; }
         .chart-labels { display: flex; justify-content: space-between; padding: 6px 16px 0 16px; font-size: 9px; color: #666d7a; }
 
-        /* --- SEÇÃO EDITAR LUCROS (FOTO 4) --- */
+        /* --- SEÇÃO EDITAR LUCROS --- */
         .edit-card-box {
             background-color: #121318;
             border: 1px solid #1c1e24;
@@ -295,16 +308,8 @@
             </div>
         </header>
 
-        <!-- ================= 1. TELA DE INÍCIO (FOTO 1 e 2) ================= -->
+        <!-- ================= 1. TELA DE INÍCIO ================= -->
         <div class="app-page active" id="page-inicio">
             <div class="banner-welcome">
                 <img src="assets/images/logo.png" alt="Vision Logo Large">
                 <div class="banner-text">
-                    <h3>Painel de Controle</h3>
-                    <p>Gerencie seus lucros com profissionalismo</p>
-                </div>
-            </div>
-
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-icon-box">📅</div>
