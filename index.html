@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vision Apostas - Login</title>
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="design.css">
 </head>
 <body>
     <div class="login-card">
@@ -47,8 +47,6 @@
         function autenticar() {
             const user = document.getElementById('campo-usuario').value;
             if (!user.trim()) return alert("Digite o usuário!");
-            
-            // Salva o nome do usuário para o painel ler
             localStorage.setItem('vision_user', user);
             window.location.href = "painel.html";
         }
