@@ -1,4 +1,4 @@
-html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -10,313 +10,194 @@ html<!DOCTYPE html>
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: #0d0d0d;
+            background-color: #0b0b0c;
             color: #ffffff;
+            min-height: 100vh;
             padding: 16px;
-            padding-top: 75px;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
         }
 
-        .dashboard-container {
+        .container {
             width: 100%;
-            max-width: 480px;
-        }
-
-        .top-navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 55px;
-            background-color: #141414;
-            border-bottom: 1px solid #1f1f1f;
+            max-width: 500px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 16px;
-            z-index: 999999;
         }
 
-        .nav-left, .nav-right-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* Topo */
+        .header-logo {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 25px;
         }
 
-        .nav-left img {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
+        .header-logo img {
+            width: 90px;
+            height: 90px;
+            border-radius: 12px;
+            border: 1px solid #1f222a;
             object-fit: cover;
         }
 
-        .nav-left span {
+        .header-logo h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        .header-logo p {
+            color: #666d7a;
             font-size: 13px;
-            font-weight: 600;
+            margin-top: 4px;
         }
 
-        .user-name-display {
-            font-size: 13px;
-            font-weight: 600;
-            color: #0066ff;
-        }
-
-        .menu-dots-btn {
-            background: transparent !important;
-            border: none !important;
-            color: #ffffff !important;
-            font-size: 26px !important;
-            font-weight: bold !important;
-            cursor: pointer;
-            padding: 4px 8px;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 50px;
-            right: 16px;
-            background-color: #141414;
-            border: 1px solid #262626;
-            border-radius: 8px;
-            width: 180px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-            z-index: 1000000;
-        }
-
-        .dropdown-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        /* Grid de Cards */
+        .cards-grid {
             width: 100%;
-            padding: 12px 16px;
-            background: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 13px;
-            text-align: left;
-            cursor: pointer;
-            border-bottom: 1px solid #1f1f1f;
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: none;
-            color: #ff4444;
-        }
-
-        .header-section {
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .header-section .logo-principal {
-            width: 90px;
-            height: 90px;
-            border-radius: 8px;
-            border: 2px solid #0066ff;
-            margin-bottom: 14px;
-        }
-
-        .header-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-        .header-section p { color: #666666; font-size: 12px; }
-
-        .stats-grid {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 14px;
         }
 
-        .stat-card {
-            background: #141414;
+        .card {
+            background-color: #121318;
+            border: 1px solid #1c1e24;
+            border-radius: 16px;
             padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
             display: flex;
             flex-direction: column;
+            gap: 6px;
         }
 
-        .card-icon-box {
-            width: 28px;
-            height: 28px;
-            background-color: #0066ff;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            font-size: 13px;
+        .card img.icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
         }
 
-        .stat-card p {
-            color: #666666;
-            font-size: 10px;
+        .card-label {
+            color: #5c626e;
+            font-size: 11px;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .stat-card .value {
-            font-size: 22px;
+        .card-value {
+            font-size: 24px;
             font-weight: 700;
-            margin-top: 4px;
-        }
-
-        .stat-card .sub-text {
-            color: #666666;
-            font-size: 11px;
-            margin-top: 4px;
-        }
-
-        .action-card {
-            background: #141414;
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            margin-bottom: 12px;
-        }
-
-        .action-title {
-            font-size: 12px;
-            font-weight: 600;
             color: #ffffff;
-            margin-bottom: 12px;
         }
 
-        .input-box {
-            position: relative;
-            margin-bottom: 12px;
+        .card-value.blue {
+            color: #2f80ed;
         }
 
-        .input-box span {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #666666;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .input-box input {
-            width: 100%;
-            padding: 12px 12px 12px 32px;
-            background: #080808;
-            border: 1px solid #1f1f1f;
-            border-radius: 6px;
-            color: white;
-            font-size: 14px;
-            outline: none;
-        }
-
-        .btn-blue {
-            width: 100%;
-            padding: 12px;
-            background-color: #0066ff;
-            border: none;
-            border-radius: 6px;
-            color: white;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .day-row-click {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #080808;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 6px;
-            cursor: pointer;
-            border: 1px solid #1f1f1f;
-        }
-
-        .menu-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 999998;
-            background: transparent;
+        .card-sub {
+            color: #5c626e;
+            font-size: 12px;
+            margin-top: 2px;
         }
     </style>
 </head>
 <body>
-    <div class="menu-overlay" id="overlay" onclick="fecharMenu()"></div>
 
-    <nav class="top-navbar">
-        <div class="nav-left">
-            <img src="assets/images/logo.png" alt="Logo" onerror="this.src='https://placehold.co'">
-            <span>Mediadores Vision</span>
-        </div>
-        
-        <div class="nav-right-area">
-            <div class="user-name-display" id="nomeUsuarioTopo">ADM-Vision</div>
-            <button type="button" class="menu-dots-btn" onclick="abrirMenu(event)">⋮</button>
-        </div>
-
-        <div class="dropdown-menu" id="dropdownMenu">
-            <button type="button" class="dropdown-item" onclick="menuClick('inicio')">🏠 Início</button>
-            <button type="button" class="dropdown-item" onclick="menuClick('editar')">📝 Editar Lucros</button>
-            <button type="button" class="dropdown-item" onclick="menuClick('sair')">↪️ Sair (Deslogar)</button>
-        </div>
-    </nav>
-
-    <div class="dashboard-container">
-        <div class="header-section">
-            <img class="logo-principal" src="assets/images/logo.png" alt="Vision Logo" onerror="this.src='https://placehold.co'">
-            <h2>Painel de Controle</h2>
+    <div class="container">
+        <!-- Logo e Títulos Principais -->
+        <div class="header-logo">
+            <img src="assets/images/logo.png" alt="Vision Logo" onerror="this.src='https://placehold.co'">
+            <h1>Painel de Controle</h1>
             <p>Gerencie seus lucros com profissionalismo</p>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card" onclick="focarInput()">
-                <div class="card-icon-box">📅</div>
-                <p>Lucro Diário</p>
-                <div class="value" id="lucro-diario">R$ 0,00</div>
+        <!-- Lista de Cards Vertical -->
+        <div class="cards-grid">
+            
+            <!-- Lucro Diário -->
+            <div class="card">
+                <img class="icon" src="https://icons8.com" alt="Calendário">
+                <div class="card-label">Lucro Diário</div>
+                <div class="card-value">R$ 0,00</div>
             </div>
 
-            <div class="stat-card" onclick="focarInput()">
-                <div class="card-icon-box">📅</div>
-                <p>Lucro Semanal</p>
-                <div class="value" id="lucro-semanal">R$ 0,00</div>
+            <!-- Lucro Semanal -->
+            <div class="card">
+                <img class="icon" src="https://icons8.com" alt="Calendário">
+                <div class="card-label">Lucro Semanal</div>
+                <div class="card-value">R$ 0,00</div>
             </div>
 
-            <div class="stat-card">
-                <div class="card-icon-box">📊</div>
-                <p>Média Diária da Semana</p>
-                <div class="value" id="lucro-media" style="color: #0066ff;">R$ 0,00</div>
+            <!-- Média Diária -->
+            <div class="card">
+                <img class="icon" src="https://icons8.com" alt="Gráfico">
+                <div class="card-label">Média Diária da Semana</div>
+                <div class="card-value blue">R$ 0,00</div>
             </div>
 
-            <div class="stat-card">
-                <div class="card-icon-box">📅</div>
-                <p>Dia da Semana</p>
-                <div class="value" id="dia-texto">...</div>
-                <div class="sub-text" id="data-texto">00-00-2026</div>
+            <!-- Dia da Semana / Data -->
+            <div class="card">
+                <img class="icon" src="https://icons8.com" alt="Calendário">
+                <div class="card-label">Dia da Semana</div>
+                <div class="card-value" id="txt-dia-semana">Carregando...</div>
+                <div class="card-sub" id="txt-data-completa">00/00/2026</div>
             </div>
 
-            <div class="stat-card">
-                <div class="card-icon-box">🕒</div>
-                <p>Hora Atual</p>
-                <div class="value" id="relogio-texto">00:00:00</div>
-                <div class="sub-text" id="tempo-restante">Faltam --h --min</div>
+            <!-- Hora Atual / Contador -->
+            <div class="card">
+                <img class="icon" src="https://icons8.com" alt="Relógio">
+                <div class="card-label">Hora Atual</div>
+                <div class="card-value" id="txt-hora-atual">00:00:00</div>
+                <div class="card-sub" id="txt-tempo-restante">Calculando tempo restante...</div>
             </div>
+
         </div>
+    </div>
 
-        <div id="bloco-editar-dias" style="display: none; flex-direction: column; gap: 8px; margin-bottom: 12px; background: #141414; padding: 16px; border-radius: 12px;">
-            <div class="action-title" style="font-size: 12px; font-weight: 600; margin-bottom: 12px;">📝 Clique no dia para alterar o valor:</div>
-            <div class="day-row-click" onclick="mudarValorDia(0)"><span>Segunda-feira</span><b id="d0">R$ 0,00</b></div>
-            <div class="day-row-click" onclick="mudarValorDia(1)"><span>Terça-feira</span><b id="d1">R$ 0,00</b></div>
-            <div class="day-row-click" onclick="mudarValorDia(2)"><span>Quarta-feira</span><b id="d2">R$ 0,00</b></div>
-            <div class="day-row-click" onclick="mudarValorDia(3)"><span>Quinta-feira</span><b id="d3">R$ 0,00</b></div>
-            <div class="day-row-click" onclick="mudarValorDia
+    <script>
+        function atualizarPainel() {
+            const agora = new Date();
+
+            // 1. Configuração de Dias da Semana
+            const diasSemana = [
+                "Domingo", "Segunda-feira", "Terça-feira", 
+                "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"
+            ];
+            
+            // 2. Atualiza Dia e Data Sem Bugs
+            document.getElementById('txt-dia-semana').innerText = diasSemana[agora.getDay()];
+            
+            const dia = String(agora.getDate()).padStart(2, '0');
+            const mes = String(agora.getMonth() + 1).padStart(2, '0');
+            const ano = agora.getFullYear();
+            document.getElementById('txt-data-completa').innerText = `${dia}/${mes}/${ano}`;
+
+            // 3. Atualiza o Relógio Digital em Tempo Real
+            const horas = String(agora.getHours()).padStart(2, '0');
+            const minutos = String(agora.getMinutes()).padStart(2, '0');
+            const segundos = String(agora.getSeconds()).padStart(2, '0');
+            document.getElementById('txt-hora-atual').innerText = `${horas}:${minutos}:${segundos}`;
+
+            // 4. Calcula Quanto Falta Para Acabar o Dia (Faltam Xh Xmin)
+            const totalMinutosDoDia = 24 * 60;
+            const minutosAtuais = (agora.getHours() * 60) + agora.getMinutes();
+            const minutosRestantes = totalMinutosDoDia - minutosAtuais;
+
+            const horasFaltando = Math.floor(minutosRestantes / 60);
+            const minutosFaltando = minutosRestantes % 60;
+
+            document.getElementById('txt-tempo-restante').innerText = `Faltam ${horasFaltando}h ${minutosFaltando}min para virar o dia`;
+        }
+
+        // Executa a função imediatamente ao carregar a página
+        atualizarPainel();
+        
+        // Atualiza o relógio a cada 1 segundo (1000 milissegundos) de forma contínua
+        setInterval(atualizarPainel, 1000);
+    </script>
+</body>
+</html>
