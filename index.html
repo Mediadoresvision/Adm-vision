@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Apostas - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #070a13;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .login-card {
+            background: #161b26;
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .logo-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid #0066ff;
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.4);
+            background: #0b0f19;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+        .subtitle { color: #94a3b8; font-size: 14px; margin-bottom: 30px; }
+
+        .auth-tabs {
+            display: flex;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 10px;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .tab.active { background: #0066ff; color: white; }
+
+        .input-group { margin-bottom: 16px; }
+        .input-group input {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 15px;
+            outline: none;
+        }
+        .input-group input:focus { border-color: #0066ff; }
+
+        .btn-blue {
+            width: 100%;
+            padding: 16px;
+            background: #0066ff;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+        }
+
+        .cadastro-only { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="logo-container">
+            <img src="https://unsplash.com" alt="Vision Logo">
+        </div>
+        <h1 id="titulo-pagina">Mediadores Vision</h1>
+        <p class="subtitle" id="sub-pagina">Faça login para acessar o painel</p>
+
+        <div class="auth-tabs">
+            <div class="tab active" id="aba-login" onclick="mudarParaLogin()">Login</div>
+            <div class="tab" id="aba-cadastro" onclick="mudarParaCadastro()">Cadastrar</div>
+        </div>
+
+        <form id="meu-formulario">
+            <div class="input-group">
+                <input type="text" id="campo-usuario" placeholder="Usuário">
+            </div>
+            
+            <div class="input-group cadastro-only" id="grupo-email">
+                <input type="email" id="campo-email" placeholder="E-mail">
+            </div>
+            
+            <div class="input-group">
+                <input type="password" id="campo-senha" placeholder="Senha">
+            </div>
+            
+            <div class="input-group cadastro-only" id="grupo-confirmar">
+                <input type="password" id="campo-confirmar" placeholder="Confirmar Senha">
+            </div>
+
+            <button type="button" class="btn-blue" id="botao-principal" onclick="processarAutenticacao()">Entrar no Sistema</button>
+        </form>
+    </div>
+
+    <script>
+        let modoAtual = "login";
+
+        function mudarParaCadastro() {
+            modoAtual = "cadastro";
+            document.getElementById('aba-login').classList.remove('active');
+            document.getElementById('aba-cadastro').classList.add('active');
+            document.getElementById('sub-pagina').innerText = "Crie sua conta gratuitamente";
+            document.getElementById('botao-principal').innerText = "Criar Nova Conta";
+            document.getElementById('grupo-email').style.display = 'block';
+            document.getElementById('grupo-confirmar').style.display = 'block';
+        }
+
+        function mudarParaLogin() {
+            modoAtual = "login";
+            document.getElementById('aba-cadastro').classList.remove('active');
+            document.getElementById('aba-login').classList.add('active');
+            document.getElementById('sub-pagina').innerText = "Faça login para acessar o painel";
+            document.getElementById('botao-principal').innerText = "Entrar no Sistema";
+            document.getElementById('grupo-email').style.display = 'none';
+            document.getElementById('grupo-confirmar').style.display = 'none';
+        }
+
+        function processarAutenticacao() {
+            const usuario = document.getElementById('campo-usuario').value;
+            const senha = document.getElementById('campo-senha').value;
+
+            if (usuario.trim() === "" || senha.trim() === "") {
+                alert("Por favor, preencha os campos de Usuário e Senha.");
+                return;
+            }
+
+            if (modoAtual === "login") {
+                window.location.href = "painel.html";
+            } else {
+                const email = document.getElementById('campo-email').value;
+                const confirmar = document.getElementById('campo-confirmar').value;
+                
+                if (email.trim() === "" || confirmar.trim() === "") {
+                    alert("Por favor, preencha todos os campos do cadastro.");
+                    return;
+                }
+
+                if (senha !== confirmar) {
+                    alert("As senhas não coincidem! Digite novamente.");
+                    return;
+                }
+                
+                alert("Conta criada com sucesso!");
+                window.location.href = "painel.html";
+            }
+        }
+    </script>
+</body>
+</html>
