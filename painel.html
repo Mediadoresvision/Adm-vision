@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mediadores Vision - Painel Avançado</title>
+    <title>Mediadores Vision - Painel</title>
     <style>
         * {
             margin: 0;
@@ -14,10 +14,10 @@
         }
 
         body {
-            background-color: #070a13;
+            background-color: #0d0d0d; /* Fundo preto idêntico ao print */
             color: #ffffff;
             padding: 16px;
-            padding-top: 80px;
+            padding-top: 75px; /* Espaço exato da barra do topo */
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -26,23 +26,23 @@
 
         .dashboard-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 480px; /* Largura perfeita de celular igual à foto */
         }
 
-        /* BARRA DO TOPO FIXA SOLICITADA */
+        /* ================= BARRA DO TOPO IDÊNTICA À FOTO ================= */
         .top-navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 65px;
-            background-color: #111622;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            height: 55px;
+            background-color: #141414;
+            border-bottom: 1px solid #1f1f1f;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 16px;
-            z-index: 999999;
+            z-index: 99999;
         }
 
         .nav-left {
@@ -52,15 +52,14 @@
         }
 
         .nav-left img {
-            width: 35px;
-            height: 35px;
-            border-radius: 6px;
-            border: 1px solid #0066ff;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
             object-fit: cover;
         }
 
         .nav-left span {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
         }
 
@@ -70,221 +69,222 @@
             gap: 12px;
         }
 
-        .user-badge {
-            background: rgba(0, 102, 255, 0.15);
-            border: 1px solid rgba(0, 102, 255, 0.3);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+        .user-name-display {
+            font-size: 13px;
             font-weight: 600;
-            color: #38bdf8;
+            color: #0066ff; /* Nome do usuário em Azul Vision */
         }
 
-        /* Botão Três Pontinhos */
-        .menu-trigger-btn {
+        .menu-dots-btn {
             background: transparent;
             border: none;
             color: #ffffff;
-            font-size: 26px;
+            font-size: 22px;
             cursor: pointer;
-            padding: 4px 8px;
-            line-height: 1;
+            padding: 4px;
         }
 
-        /* Menu Suspenso (Dropdown) Corrigido */
-        .custom-dropdown {
+        /* ================= DROPDOWN ALINHADO IGUAL AO PRINT ================= */
+        .dropdown-menu {
             display: none;
             position: absolute;
-            top: 60px;
+            top: 50px;
             right: 16px;
-            background-color: #161b26;
-            border: 1px solid rgba(0, 102, 255, 0.3);
+            background-color: #141414;
+            border: 1px solid #262626;
             border-radius: 8px;
-            width: 190px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            z-index: 1000000;
+            width: 180px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+            z-index: 100000;
         }
 
-        .menu-link {
-            display: block;
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             width: 100%;
-            padding: 14px 16px;
+            padding: 12px 16px;
             background: transparent;
             border: none;
-            color: #cbd5e1;
+            color: #ffffff;
             font-size: 13px;
             text-align: left;
             cursor: pointer;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid #1f1f1f;
         }
 
-        .menu-link:last-child {
+        .dropdown-item:last-child {
             border-bottom: none;
-            color: #f87171;
+            color: #ff4444;
         }
 
-        /* CABEÇALHO CENTRAL */
+        /* ================= CONTEÚDO CENTRAL ================= */
         .header-section {
             text-align: center;
             margin-bottom: 24px;
+            margin-top: 10px;
         }
 
         .header-section img {
             width: 90px;
             height: 90px;
-            border-radius: 12px;
+            border-radius: 8px;
             border: 2px solid #0066ff;
-            box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
             object-fit: cover;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
-        .header-section h2 { font-size: 22px; font-weight: 700; }
-        .header-section p { color: #64748b; font-size: 13px; }
+        .header-section h2 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+        .header-section p { color: #666666; font-size: 12px; }
 
-        /* Grade adaptável: Um embaixo do outro no celular */
+        /* ================= CARTÕES GRANDES EM VERTICAL (IGUAL À FOTO) ================= */
         .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
         .stat-card {
-            background: #161b26;
+            background: #141414; /* Cor idêntica aos blocos da foto */
             padding: 20px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.02);
             display: flex;
             flex-direction: column;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .stat-card:active {
+        /* Aura azul sutil ao clicar/tocar */
+        .stat-card:active, .action-card:active {
             border-color: #0066ff;
-            box-shadow: 0 0 15px rgba(0, 102, 255, 0.5);
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.4);
         }
 
+        /* Caixa do ícone em AZUL */
         .card-icon-box {
-            width: 32px;
-            height: 32px;
-            background: #0066ff;
+            width: 28px;
+            height: 28px;
+            background: #0066ff; /* Azul Vision */
             border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px;
-            font-size: 14px;
+            margin-bottom: 12px;
+            font-size: 13px;
         }
 
-        .stat-card p { color: #64748b; font-size: 11px; font-weight: 600; text-transform: uppercase; }
-        .stat-card .value { font-size: 24px; font-weight: 700; margin-top: 4px; }
-        .stat-card .sub-text { color: #38bdf8; font-size: 12px; margin-top: 4px; }
-
-        /* SEÇÃO EDITAR LUCRO (SEGUNDA A DOMINGO) */
-        .section-box {
-            background: #161b26;
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            margin-bottom: 16px;
-        }
-
-        .section-title {
-            font-size: 14px;
+        .stat-card p {
+            color: #666666;
+            font-size: 10px;
             font-weight: 600;
-            margin-bottom: 14px;
-            color: #38bdf8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .days-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .stat-card .value {
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 4px;
         }
 
-        .day-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #090d16;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            cursor: pointer;
+        .stat-card .sub-text {
+            color: #666666;
+            font-size: 11px;
+            margin-top: 4px;
         }
 
-        .day-row:active {
-            border-color: #0066ff;
+        /* ================= SEÇÕES DE AÇÃO E ENTRADAS ================= */
+        .action-card {
+            background: #141414;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            margin-bottom: 12px;
         }
 
-        .day-name { font-size: 13px; font-weight: 600; }
-        .day-val { font-size: 14px; font-weight: 700; color: #10b981; }
-
-        /* FILTRO DE DATA ESPECÍFICA */
-        .date-picker-box {
-            display: flex;
-            gap: 8px;
-            margin-top: 10px;
+        .action-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 12px;
         }
 
-        .date-picker-box input {
-            flex: 1;
-            padding: 10px;
-            background: #090d16;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 6px;
-            color: white;
-            outline: none;
-        }
-
-        /* ENTRADAS E BOTÕES */
         .input-box {
             position: relative;
             margin-bottom: 12px;
         }
 
-        .input-box span { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #64748b; font-weight: 600; }
+        .input-box span {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666666;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
         .input-box input {
             width: 100%;
             padding: 12px 12px 12px 32px;
-            background: #090d16;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
+            background: #080808;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 6px;
             color: white;
+            font-size: 14px;
             outline: none;
         }
 
+        /* Botão em AZUL VISION */
         .btn-blue {
             width: 100%;
             padding: 12px;
             background: #0066ff;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             color: white;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
         }
 
-        /* Máscara de fundo para fechar o menu ao clicar fora */
-        .backdrop-mask {
+        /* Lista de Edição Ocultável por padrão */
+        #container-editar-dias {
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            background: #141414;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .day-editable-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #080808;
+            padding: 12px;
+            border-radius: 6px;
+        }
+
+        /* Camada invisível de clique fora */
+        .menu-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 99999;
-        }
-
-        @media (min-width: 768px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            z-index: 99998;
         }
     </style>
 </head>
 <body>
 
-    <!-- Máscara de fundo para fechar o menu com clique fora -->
-    <div class="backdrop-mask" id="mascaraGlobal" onclick="toggleMenuGlobal()"></div>
+    <div class="menu-overlay" id="overlay" onclick="fecharDropdown()"></div>
 
-    <!-- NAVBAR ATUALIZADA -->
+    <!-- Barra do Topo Igualzinha à Imagem -->
     <nav class="top-navbar">
         <div class="nav-left">
             <img src="assets/images/logo.png" alt="Logo" onerror="this.src='https://placehold.co'">
@@ -292,43 +292,45 @@
         </div>
         
         <div class="nav-right-area">
-            <div class="user-badge" id="displayUsuario">ADM-Vision</div>
-            <button type="button" class="menu-trigger-btn" onclick="toggleMenuGlobal()">⋮</button>
+            <!-- Puxa o nome real do cadastro/login -->
+            <div class="user-name-display" id="nomeUsuarioTopo">Carregando...</div>
+            <button type="button" class="menu-dots-btn" onclick="abrirDropdown(event)">⋮</button>
         </div>
 
-        <div class="custom-dropdown" id="dropdownGlobal">
-            <button class="menu-link" onclick="acaoMenu('inicio')">🏠 Início</button>
-            <button class="menu-link" onclick="acaoMenu('dashboard')">📊 Dashboard</button>
-            <button class="menu-link" onclick="acaoMenu('editar')">📝 Editar Lucros</button>
-            <button class="menu-link" onclick="acaoMenu('sair')">↪️ Sair</button>
+        <!-- Menu suspenso flutuante livre -->
+        <div class="dropdown-menu" id="meuDropdown">
+            <button class="dropdown-item" onclick="menuAcao('inicio')">🏠 Início</button>
+            <button class="dropdown-item" onclick="menuAcao('dashboard')">📊 Dashboard</button>
+            <button class="dropdown-item" onclick="menuAcao('editar')">📝 Editar Lucros</button>
+            <button class="dropdown-item" onclick="menuAcao('sair')">↪️ Sair</button>
         </div>
     </nav>
 
     <div class="dashboard-container">
         
+        <!-- Cabeçalho Vision -->
         <div class="header-section">
             <img src="assets/images/logo.png" alt="Vision Logo" onerror="this.src='https://placehold.co'">
             <h2>Painel de Controle</h2>
             <p>Gerencie seus lucros com profissionalismo</p>
         </div>
 
-        <!-- DASHBOARD RESTAURADA COM TODOS OS BLOCOS -->
-        <div id="area-dashboard" class="stats-grid">
-            <div class="stat-card" onclick="focarCampoInput()">
+        <!-- Grade Vertical de Cartões -->
+        <div class="stats-grid">
+            
+            <!-- Lucro Diário -->
+            <div class="stat-card" onclick="focarInput()">
                 <div class="card-icon-box">📅</div>
                 <p>Lucro Diário</p>
                 <div class="value" id="lucro-diario">R$ 0,00</div>
             </div>
 
-            <div class="stat-card" onclick="focarCampoInput()">
-                <div class="card-icon-box">📊</div>
+            <!-- Lucro Semanal -->
+            <div class="stat-card" onclick="focarInput()">
+                <div class="card-icon-box">📅</div>
                 <p>Lucro Semanal</p>
                 <div class="value" id="lucro-semanal">R$ 0,00</div>
             </div>
 
+            <!-- Média Diária da Semana (Baseada nos valores salvos) -->
             <div class="stat-card">
-                <div class="card-icon-box">📈</div>
-                <p>Média Diária da Semana</p>
-                <div class="value" id="lucro-media" style="color: #10b981;">R$ 0,00</div>
-            </div>
-
