@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mediadores Vision - Início</title>
+    <title>Mediadores Vision - Autenticação</title>
     <style>
         * {
             margin: 0;
@@ -14,288 +14,186 @@
         }
 
         body {
-            background-color: #0d0e12;
+            background-color: #0b0b0c;
             color: #ffffff;
             min-height: 100vh;
-            padding: 12px;
+            padding: 16px;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
         .container {
             width: 100%;
-            max-width: 480px;
-            position: relative;
+            max-width: 440px;
         }
 
-        /* --- CABEÇALHO TOPO REESTRUTURADO --- */
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 4px;
-            margin-bottom: 16px;
-            border-bottom: 1px solid #1a1d26;
-            position: relative;
-        }
-
-        /* Garante que o texto ocupe apenas o espaço necessário */
-        .header-brand {
-            max-width: 70%;
-        }
-
-        .header-brand h2 { 
-            font-size: 16px; 
-            font-weight: 700; 
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        /* Isolamento total da área direita do botão */
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            position: relative;
-            z-index: 1010; /* Fica por cima de tudo */
-        }
-        
-        .user-badge { font-size: 13px; color: #8a92a6; font-weight: 600; }
-
-        /* Aumentado a área de clique do botão */
-        .menu-trigger {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 8px 12px; /* Área de toque maior para o dedo */
-            display: inline-block;
-            line-height: 1;
-        }
-
-        /* MENU FLUTUANTE RETANGULAR AZUL */
-        .dropdown-nav {
-            position: absolute;
-            top: 45px;
-            right: 0;
-            background-color: #16181f;
+        .auth-card {
+            background: #121318;
+            width: 100%;
+            padding: 35px 25px;
+            border-radius: 20px;
             border: 1px solid #0066ff;
-            border-radius: 8px;
-            width: 170px;
-            display: none;
-            flex-direction: column;
-            padding: 4px;
-            z-index: 1050; /* Fica acima de todas as camadas */
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            box-shadow: 0px 0px 20px rgba(0, 102, 255, 0.1);
         }
 
-        .nav-item {
+        .auth-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px auto;
+            border-radius: 12px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .auth-card h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .auth-tabs {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            background: #1c1e24;
+            padding: 4px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .auth-tab {
+            flex: 1;
             padding: 12px;
-            color: #cbd5e1;
-            font-size: 13px;
+            color: #666d7a;
             font-weight: 600;
-            text-decoration: none;
+            font-size: 14px;
             border-radius: 6px;
             cursor: pointer;
-        }
-
-        .nav-item:hover {
-            background-color: #1f222e;
-            color: #0066ff;
-        }
-
-        .nav-item.logout {
-            color: #ff4444;
-            border-top: 1px solid #1a1d26;
-            border-radius: 0;
-        }
-
-        /* --- BANNER DE BOAS-VINDAS --- */
-        .welcome-card {
-            background-color: #16181f;
-            border: 1px solid #232736;
-            border-radius: 12px;
-            padding: 24px 16px;
-            margin-bottom: 20px;
             text-align: center;
         }
-        .welcome-text h3 { font-size: 20px; font-weight: 700; }
-        .welcome-text p { color: #666d7a; font-size: 12px; margin-top: 4px; }
 
-        /* --- GRADE DOS QUATRO CARDS --- */
-        .grid-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
+        .auth-tab.active {
+            background: #0066ff;
+            color: white;
         }
 
-        .stat-card {
-            background-color: #16181f;
-            border: 1px solid #232736;
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
+        .input-group {
+            margin-bottom: 14px;
+            position: relative;
         }
 
-        .stat-label {
-            color: #5c626e;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .stat-main { font-size: 18px; font-weight: 700; margin-top: 4px; }
-        .stat-sub { font-size: 11px; color: #0066ff; margin-top: 4px; }
-
-        .block-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .input-money-row {
-            background-color: #16181f;
-            border: 1px solid #232736;
-            border-radius: 8px;
-            padding: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .input-money-row span { color: #0066ff; font-weight: 700; }
-        .input-money-row input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #ffffff;
+        .input-group input {
             width: 100%;
+            padding: 14px 14px 14px 40px;
+            background: #1c1e24;
+            border: 1px solid #2d3139;
+            border-radius: 8px;
+            color: white;
+            outline: none;
+            font-size: 14px;
         }
 
-        .btn-full-blue {
+        .input-group input:focus {
+            border-color: #0066ff;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666d7a;
+            font-size: 14px;
+        }
+
+        .btn-auth-submit {
             width: 100%;
             padding: 14px;
             background-color: #0066ff;
             border: none;
             border-radius: 8px;
-            color: #ffffff;
+            color: white;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            margin-bottom: 12px;
-        }
-
-        .btn-full-clear {
-            width: 100%;
-            padding: 12px;
-            background-color: rgba(0, 102, 255, 0.1);
-            border: 1px solid #0066ff;
-            border-radius: 8px;
-            color: #0066ff;
-            font-weight: 600;
-            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- BARRA DO TOPO -->
-        <header class="header-top">
-            <div class="header-brand">
-                <h2>Mediadores Vision</h2>
+        <div class="auth-card">
+            <img class="auth-logo" src="logo.png" onerror="this.src='https://placehold.co'">
+            <h1>Mediadores Vision</h1>
+
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="tab-login" onclick="mudarAbas('login')">Login</div>
+                <div class="auth-tab" id="tab-cadastro" onclick="mudarAbas('cadastro')">Cadastrar</div>
             </div>
-            <div class="header-right">
-                <span class="user-badge" id="txt-user-id">---</span>
-                <!-- Área de toque totalmente livre e ampliada -->
-                <button type="button" class="menu-trigger" onclick="toggleMenu(event)">⋮</button>
+
+            <div>
+                <div class="input-group">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="auth-user" placeholder="Usuário">
+                </div>
+                <div class="input-group">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="auth-pass" placeholder="Senha">
+                </div>
                 
-                <nav class="dropdown-nav" id="boxMenu">
-                    <a href="painel.html" class="nav-item">🏠 Início</a>
-                    <a href="dashboard.html" class="nav-item">📊 Dashboard</a>
-                    <a href="editar.html" class="nav-item">📝 Editar Lucros</a>
-                    <a href="index.html" class="nav-item logout" onclick="deslogar()">🚪 Sair</a>
-                </nav>
-            </div>
-        </header>
-
-        <!-- BANNER DE BOAS-VINDAS -->
-        <div class="welcome-card">
-            <div class="welcome-text">
-                <h3>Painel de Controle</h3>
-                <p>Gerencie seus lucros com profissionalismo</p>
+                <button type="button" class="btn-auth-submit" id="btn-text" onclick="entrarSistema()">➔ Entrar</button>
             </div>
         </div>
-
-        <!-- GRADE DOS QUATRO CARDS -->
-        <div class="grid-stats">
-            <div class="stat-card">
-                <div class="stat-label">Lucro Diário</div>
-                <div class="stat-main" id="lbl-lucro-dia">R$ 0,00</div>
-            </div>
-            <div class="stat-card">
-                <div class="icon-square" style="display:none;"></div>
-                <div class="stat-label">Lucro Semanal</div>
-                <div class="stat-main" id="lbl-lucro-semana">R$ 0,00</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Média Diária</div>
-                <div class="stat-main" id="lbl-media-dia">R$ 0,00</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Dias com Lucro</div>
-                <div class="stat-main" id="lbl-dias-lucro">0 / 7</div>
-            </div>
-        </div>
-
-        <div class="block-title">✪ Adicionar Lucro</div>
-        <div class="input-money-row">
-            <span>$</span>
-            <input type="number" id="txt-valor-inserir" placeholder="Valor do lucro (ex: 100,50)" step="0.01">
-        </div>
-        <button type="button" class="btn-full-blue" onclick="adicionarMoneys()">+ Adicionar Lucro</button>
-        <button type="button" class="btn-full-clear" onclick="limparRegistrosSemana()">🔄 Zerar Semana</button>
     </div>
 
     <script>
-        const chavesDias = ["dom", "seg", "ter", "qua", "qui", "sex", "sab"];
-        let carteiraValores = {};
+        let modo = 'login';
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const sessao = localStorage.getItem('sessao_vision') || "Usuário";
-            document.getElementById('txt-user-id').innerText = sessao;
-            puxarMemoriaNavegador();
-        });
-
-        function puxarMemoriaNavegador() {
-            const user = localStorage.getItem('sessao_vision') || "padrao";
-            carteiraValores = JSON.parse(localStorage.getItem('banco_lucros_' + user)) || {
-                dom: 0, seg: 0, ter: 0, qua: 0, qui: 0, sex: 0, sab: 0
-            };
+        function mudarAbas(tipo) {
+            modo = tipo;
+            document.getElementById('tab-login').classList.remove('active');
+            document.getElementById('tab-cadastro').classList.remove('active');
             
-            const idHoje = chavesDias[new Date().getDay()];
-            
-            document.getElementById('lbl-lucro-dia').innerText = "R$ " + (carteiraValores[idHoje] || 0).toFixed(2).replace('.', ',');
-            
-            const total = Object.values(carteiraValores).reduce((a, b) => a + b, 0);
-            document.getElementById('lbl-lucro-semana').innerText = "R$ " + total.toFixed(2).replace('.', ',');
-            
-            const media = total / 7;
-            document.getElementById('lbl-media-dia').innerText = "R$ " + media.toFixed(2).replace('.', ',');
-            
-            let frequencia = 0;
-            Object.values(carteiraValores).forEach(val => { if(val > 0) frequencia++; });
-            document.getElementById('lbl-dias-lucro').innerText = frequencia + " / 7";
+            if (tipo === 'login') {
+                document.getElementById('tab-login').classList.add('active');
+                document.getElementById('btn-text').innerText = '➔ Entrar';
+            } else {
+                document.getElementById('tab-cadastro').classList.add('active');
+                document.getElementById('btn-text').innerText = '➔ Criar Conta';
+            }
         }
 
-        function adicionarMoneys() {
+        function entrarSistema() {
+            const user = document.getElementById('auth-user').value.trim();
+            const pass = document.getElementById('auth-pass').value.trim();
+
+            if (!user || !pass) return alert("Preencha todos os campos!");
+
+            if (modo === 'cadastro') {
+                localStorage.setItem('user_vision_' + user, pass);
+                alert("Conta criada! Mude para a aba 'Login'.");
+                mudarAbas('login');
+            } else {
+                const senhaSalva = localStorage.getItem('user_vision_' + user);
+                if (senhaSalva && senhaSalva === pass) {
+                    localStorage.setItem('sessao_vision', user);
+                    // CORRIGIDO: Força a navegação exata para a página do painel na web
+                    window.location.href = "painel.html";
+                } else {
+                    alert("Usuário ou senha incorretos!");
+                }
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('sessao_vision')) {
+                window.location.href = "painel.html";
+            }
+        });
+    </script>
+</body>
+</html>
