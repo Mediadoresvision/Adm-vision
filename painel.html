@@ -5,279 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mediadores Vision - Início</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: #0d0e12;
-            color: #ffffff;
-            min-height: 100vh;
-            padding: 12px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 480px;
-        }
-
-        /* --- CABEÇALHO TOPO --- */
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 4px;
-            margin-bottom: 16px;
-            border-bottom: 1px solid #1a1d26;
-        }
-
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header-brand img {
-            width: 36px;
-            height: 36px;
-            border-radius: 6px;
-            object-fit: cover;
-        }
-
-        .header-brand h2 {
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-        }
-
-        .user-badge {
-            font-size: 13px;
-            color: #8a92a6;
-            font-weight: 600;
-        }
-
-        .menu-trigger {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        /* --- MENU FLUTUANTE RETANGULAR AZUL --- */
-        .dropdown-nav {
-            position: absolute;
-            top: 35px;
-            right: 0;
-            background-color: #16181f;
-            border: 1px solid #0066ff;
-            border-radius: 8px;
-            width: 170px;
-            display: none;
-            flex-direction: column;
-            padding: 4px;
-            z-index: 1000;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            color: #cbd5e1;
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 6px;
-        }
-
-        .nav-item:hover {
-            background-color: #1f222e;
-            color: #0066ff;
-        }
-
-        .nav-item.logout {
-            color: #ff4444;
-            border-top: 1px solid #1a1d26;
-            border-radius: 0;
-        }
-
-        /* --- BANNER DE BOAS-VINDAS --- */
-        .welcome-card {
-            background-color: #16181f;
-            border: 1px solid #232736;
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        .welcome-card img {
-            width: 65px;
-            height: 65px;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
-        .welcome-text h3 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-
-        .welcome-text p {
-            color: #666d7a;
-            font-size: 12px;
-        }
-
-        /* --- GRADE DOS QUATRO CARDS --- */
-        .grid-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
-            background-color: #16181f;
-            border: 1px solid #232736;
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .icon-square {
-            width: 28px;
-            height: 28px;
-            background-color: rgba(0, 102, 255, 0.1);
-            border-radius: 6px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 13px;
-            margin-bottom: 12px;
-            color: #0066ff;
-        }
-
-        .stat-label {
-            color: #5c626e;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .stat-main {
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .stat-sub {
-            font-size: 11px;
-            color: #0066ff;
-            margin-top: 4px;
-        }
-
-        /* --- SEÇÕES DE ENTRADA --- */
-        .block-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .input-money-row {
-            background-color: #16181f;
-            border: 1px solid #232736;
-            border-radius: 8px;
-            padding: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .input-money-row span {
-            color: #0066ff;
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .input-money-row input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #ffffff;
-            width: 100%;
-            font-size: 14px;
-        }
-
-        /* --- BOTÕES DO PADRÃO FORMULÁRIO --- */
-        .btn-full-blue {
-            width: 100%;
-            padding: 14px;
-            background-color: #0066ff;
-            border: none;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .btn-full-clear {
-            width: 100%;
-            padding: 12px;
-            background-color: rgba(0, 102, 255, 0.1);
-            border: 1px solid #0066ff;
-            border-radius: 8px;
-            color: #0066ff; /* Alterado de vermelho para o azul do sistema */
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .btn-full-nav {
-            width: 100%;
-            padding: 12px;
-            background-color: #16181f;
-            border: 1px solid #232736;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #0d0e12; color: #ffffff; min-height: 100vh; padding: 12px; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 480px; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; padding: 10px 4px; margin-bottom: 16px; border-bottom: 1px solid #1a1d26; }
+        .header-brand { display: flex; align-items: center; gap: 10px; }
+        .header-brand img { width: 36px; height: 36px; border-radius: 6px; object-fit: cover; }
+        .header-brand h2 { font-size: 16px; font-weight: 700; }
+        .header-right { display: flex; align-items: center; gap: 10px; position: relative; }
+        .user-badge { font-size: 13px; color: #8a92a6; font-weight: 600; }
+        .menu-trigger { background: none; border: none; color: #ffffff; font-size: 20px; cursor: pointer; padding: 4px; }
+        .dropdown-nav { position: absolute; top: 35px; right: 0; background-color: #16181f; border: 1px solid #0066ff; border-radius: 8px; width: 170px; display: none; flex-direction: column; padding: 4px; z-index: 1000; }
+        .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; color: #cbd5e1; font-size: 13px; font-weight: 600; text-decoration: none; border-radius: 6px; }
+        .nav-item:hover { background-color: #1f222e; color: #0066ff; }
+        .nav-item.logout { color: #ff4444; border-top: 1px solid #1a1d26; border-radius: 0; }
+        .welcome-card { background-color: #16181f; border: 1px solid #232736; border-radius: 12px; padding: 16px; display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+        .welcome-card img { width: 65px; height: 65px; border-radius: 8px; object-fit: cover; }
+        .welcome-text h3 { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+        .welcome-text p { color: #666d7a; font-size: 12px; }
+        .grid-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .stat-card { background-color: #16181f; border: 1px solid #232736; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; }
+        .icon-square { width: 28px; height: 28px; background-color: rgba(0, 102, 255, 0.1); border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 13px; margin-bottom: 12px; color: #0066ff; }
+        .stat-label { color: #5c626e; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+        .stat-main { font-size: 18px; font-weight: 700; }
+        .stat-sub { font-size: 11px; color: #0066ff; margin-top: 4px; }
+        .block-title { font-size: 13px; font-weight: 700; color: #ffffff; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .input-money-row { background-color: #16181f; border: 1px solid #232736; border-radius: 8px; padding: 12px; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .input-money-row span { color: #0066ff; font-weight: 700; font-size: 14px; }
+        .input-money-row input { background: transparent; border: none; outline: none; color: #ffffff; width: 100%; font-size: 14px; }
+        .btn-full-blue { width: 100%; padding: 14px; background-color: #0066ff; border: none; border-radius: 8px; color: #ffffff; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; margin-bottom: 20px; }
+        .btn-full-clear { width: 100%; padding: 12px; background-color: rgba(0, 102, 255, 0.1); border: 1px solid #0066ff; border-radius: 8px; color: #0066ff; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; margin-bottom: 10px; }
+        .btn-full-nav { width: 100%; padding: 12px; background-color: #16181f; border: 1px solid #232736; border-radius: 8px; color: #ffffff; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: block; }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <!-- BARRA DO TOPO -->
         <header class="header-top">
             <div class="header-brand">
                 <img src="assets/images/logo.png" alt="Vision Logo">
@@ -286,7 +48,6 @@
             <div class="header-right">
                 <span class="user-badge" id="txt-user-id">222</span>
                 <button type="button" class="menu-trigger" onclick="toggleMenu(event)">⋮</button>
-                
                 <nav class="dropdown-nav" id="boxMenu">
                     <a href="painel.html" class="nav-item">🏠 Início</a>
                     <a href="dashboard.html" class="nav-item">📊 Dashboard</a>
@@ -296,7 +57,6 @@
             </div>
         </header>
 
-        <!-- BANNER PRINCIPAL COM IMAGEM -->
         <div class="welcome-card">
             <img src="assets/images/logo.png" alt="Logo Interno">
             <div class="welcome-text">
@@ -305,7 +65,6 @@
             </div>
         </div>
 
-        <!-- GRADE COM OS QUATRO CARDS DE DADOS -->
         <div class="grid-stats">
             <div class="stat-card">
                 <div class="icon-square">📅</div>
@@ -331,7 +90,6 @@
             </div>
         </div>
 
-        <!-- SEÇÃO ADICIONAR LUCRO -->
         <div class="block-title">✪ Adicionar Lucro</div>
         <div class="input-money-row">
             <span>$</span>
@@ -339,6 +97,50 @@
         </div>
         <button type="button" class="btn-full-blue" onclick="adicionarMoneys()">+ Adicionar Lucro</button>
 
-        <!-- SEÇÃO AÇÕES RÁPIDAS -->
         <div class="block-title">🔄 Ações Rápidas</div>
         <button type="button" class="btn-full-clear" onclick="limparRegistrosSemana()">🔄 Zerar Semana</button>
+        <a href="editar.html" class="btn-full-nav">📝 Editar Lucros</a>
+    </div>
+
+    <script>
+        const chavesDias = ["dom", "seg", "ter", "qua", "qui", "sex", "sab"];
+        let carteiraValores = {};
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const sessao = localStorage.getItem('sessao_vision');
+            if (!sessao) { window.location.href = "index.html"; return; }
+            document.getElementById('txt-user-id').innerText = sessao;
+            puxarMemoriaNavegador();
+            startCronometro();
+        });
+
+        function puxarMemoriaNavegador() {
+            const user = localStorage.getItem('sessao_vision');
+            carteiraValores = JSON.parse(localStorage.getItem('banco_lucros_' + user)) || { dom: 0, seg: 0, ter: 0, qua: 0, qui: 0, sex: 0, sab: 0 };
+            const hoje = new Date();
+            const idHoje = chavesDias[hoje.getDay()];
+            document.getElementById('lbl-lucro-dia').innerText = "R$ " + (carteiraValores[idHoje] || 0).toFixed(2).replace('.', ',');
+            const total = Object.values(carteiraValores).reduce((a, b) => a + b, 0);
+            document.getElementById('lbl-lucro-semana').innerText = "R$ " + total.toFixed(2).replace('.', ',');
+        }
+
+        function startCronometro() {
+            function rodar() {
+                const agora = new Date();
+                const nomes = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+                document.getElementById('lbl-dia-nome').innerText = nomes[agora.getDay()];
+                const d = String(agora.getDate()).padStart(2, '0');
+                const m = String(agora.getMonth() + 1).padStart(2, '0');
+                document.getElementById('lbl-data-hoje').innerText = d + "-" + m + "-" + agora.getFullYear();
+                document.getElementById('lbl-hora-tempo').innerText = String(agora.getHours()).padStart(2, '0') + ":" + String(agora.getMinutes()).padStart(2, '0') + ":" + String(agora.getSeconds()).padStart(2, '0');
+                const minutosRestantes = (24 * 60) - ((agora.getHours() * 60) + agora.getMinutes());
+                document.getElementById('lbl-contagem-regressiva').innerText = "Faltam " + Math.floor(minutosRestantes / 60) + "h " + (minutosRestantes % 60) + "min";
+            }
+            rodar(); setInterval(rodar, 1000);
+        }
+
+        function adicionarMoneys() {
+            const val = parseFloat(document.getElementById('txt-valor-inserir').value);
+            if (!val || val <= 0) return alert("Insira um valor válido!");
+            const user = localStorage.getItem('sessao_vision');
+            const hoje = new Date();
