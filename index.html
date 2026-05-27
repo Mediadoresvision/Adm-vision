@@ -125,14 +125,11 @@
                 <input type="text" id="campo-usuario" placeholder="Usuário">
             </div>
             
-            <div class="input-group cadastro-only" id="grupo-email">
-                <input type="email" id="campo-email" placeholder="E-mail">
-            </div>
-            
             <div class="input-group">
                 <input type="password" id="campo-senha" placeholder="Senha">
             </div>
             
+            <!-- Apenas o confirmar senha continua aqui para segurança do cadastro -->
             <div class="input-group cadastro-only" id="grupo-confirmar">
                 <input type="password" id="campo-confirmar" placeholder="Confirmar Senha">
             </div>
@@ -150,7 +147,6 @@
             document.getElementById('aba-cadastro').classList.add('active');
             document.getElementById('sub-pagina').innerText = "Crie sua conta gratuitamente";
             document.getElementById('botao-principal').innerText = "Criar Nova Conta";
-            document.getElementById('grupo-email').style.display = 'block';
             document.getElementById('grupo-confirmar').style.display = 'block';
         }
 
@@ -160,7 +156,6 @@
             document.getElementById('aba-login').classList.add('active');
             document.getElementById('sub-pagina').innerText = "Faça login para acessar o painel";
             document.getElementById('botao-principal').innerText = "Entrar no Sistema";
-            document.getElementById('grupo-email').style.display = 'none';
             document.getElementById('grupo-confirmar').style.display = 'none';
         }
 
@@ -176,11 +171,10 @@
             if (modoAtual === "login") {
                 window.location.href = "painel.html";
             } else {
-                const email = document.getElementById('campo-email').value;
                 const confirmar = document.getElementById('campo-confirmar').value;
                 
-                if (email.trim() === "" || confirmar.trim() === "") {
-                    alert("Por favor, preencha todos os campos do cadastro.");
+                if (confirmar.trim() === "") {
+                    alert("Por favor, confirme a sua senha.");
                     return;
                 }
 
