@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mediadores Vision - Painel</title>
-    <link rel="stylesheet" href="estilo.css">
+    <!-- Conectado ao novo arquivo de estilo -->
+    <link rel="stylesheet" href="design.css">
 </head>
 <body>
+    <!-- Fundo invisível para fechar o menu ao clicar fora -->
     <div class="menu-overlay" id="overlay" onclick="toggleMenu()"></div>
 
+    <!-- Barra do Topo Corrigida -->
     <nav class="top-navbar">
         <div class="nav-left">
             <img src="assets/images/logo.png" alt="Logo" onerror="this.src='https://placehold.co'">
@@ -18,10 +21,12 @@
             <div class="user-name-display" id="nomeUsuarioTopo">ADM-Vision</div>
             <button type="button" class="menu-dots-btn" onclick="toggleMenu()">⋮</button>
         </div>
+        
+        <!-- Caixinha do Dropdown -->
         <div class="dropdown-menu" id="meuDropdown">
-            <button class="dropdown-item" onclick="window.location.href='index.html'">🏠 Início</button>
-            <button class="dropdown-item" onclick="togglePainelEdicao()">📝 Editar Lucros</button>
-            <button class="dropdown-item" onclick="window.location.href='index.html'">↪️ Sair</button>
+            <button type="button" class="dropdown-item" onclick="window.location.href='index.html'">🏠 Início</button>
+            <button type="button" class="dropdown-item" onclick="togglePainelEdicao()">📝 Editar Lucros</button>
+            <button type="button" class="dropdown-item" onclick="window.location.href='index.html'">↪️ Sair</button>
         </div>
     </nav>
 
@@ -32,28 +37,33 @@
             <p>Gerencie seus lucros com profissionalismo</p>
         </div>
 
+        <!-- Grade de Cartões Grandes em Pé -->
         <div class="stats-grid">
-            <div class="stat-card">
+            <div class="stat-card" onclick="focarInput()">
                 <div class="card-icon-box">📅</div>
                 <p>Lucro Diário</p>
                 <div class="value" id="lucro-diario">R$ 0,00</div>
             </div>
-            <div class="stat-card">
+            
+            <div class="stat-card" onclick="focarInput()">
                 <div class="card-icon-box">📅</div>
                 <p>Lucro Semanal</p>
                 <div class="value" id="lucro-semanal">R$ 0,00</div>
             </div>
+            
             <div class="stat-card">
                 <div class="card-icon-box">📊</div>
                 <p>Média Diária da Semana</p>
                 <div class="value" id="lucro-media" style="color: #0066ff;">R$ 0,00</div>
             </div>
+            
             <div class="stat-card">
                 <div class="card-icon-box">📅</div>
                 <p>Dia da Semana</p>
                 <div class="value" id="dia-texto">...</div>
                 <div class="sub-text" id="data-texto">00-00-2026</div>
             </div>
+            
             <div class="stat-card">
                 <div class="card-icon-box">🕒</div>
                 <p>Hora Atual</p>
@@ -62,6 +72,7 @@
             </div>
         </div>
 
+        <!-- Painel de Segunda a Domingo que abre pelo menu -->
         <div id="bloco-editar-dias" style="display: none; flex-direction: column; gap: 8px; margin-bottom: 12px;">
             <div class="day-row-click" onclick="mudarValorDia(0)"><span>Segunda-feira</span><b id="d0">R$ 0,00</b></div>
             <div class="day-row-click" onclick="mudarValorDia(1)"><span>Terça-feira</span><b id="d1">R$ 0,00</b></div>
@@ -72,7 +83,8 @@
             <div class="day-row-click" onclick="mudarValorDia(6)"><span>Domingo</span><b id="d6">R$ 0,00</b></div>
         </div>
 
-        <div class="action-card">
+        <!-- Área de Adicionar Lucro -->
+        <div class="action-card" id="card-faturamento">
             <div class="action-title">🔲 Adicionar Lucro</div>
             <div class="input-box">
                 <span>R$</span>
@@ -83,13 +95,13 @@
     </div>
 
     <script>
-        let listaValores = JSON.parse(localStorage.getItem('vision_lucros')) ||;
+        let listaValores = JSON.parse(localStorage.getItem('vision_lucros')) || [0,0,0,0,0,0,0];
         document.getElementById('nomeUsuarioTopo').innerText = localStorage.getItem('vision_user') || "ADM-Vision";
 
         function toggleMenu() {
-            const menu = document.getElementById('dropdownMenu');
+            const menu = document.getElementById('meuDropdown');
             const overlay = document.getElementById('overlay');
-            const ativo = menu.style.display === 'block';
+            const ativo = (menu.style.display === 'block');
             menu.style.display = ativo ? 'none' : 'block';
             overlay.style.display = ativo ? 'none' : 'block';
         }
@@ -97,21 +109,29 @@
         function togglePainelEdicao() {
             toggleMenu();
             const painel = document.getElementById('bloco-editar-dias');
-            painel.style.display = painel.style.display === 'none' ? 'flex' : 'none';
+            painel.style.display = (painel.style.display === 'none' || painel.style.display === '') ? 'flex' : 'none';
+            if(painel.style.display === 'flex') painel.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function focarInput() {
+            document.getElementById('card-faturamento').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('valor-input').focus();
         }
 
         function atualizarTelas() {
             let total = 0, preenchidos = 0;
             listaValores.forEach((val, i) => {
-                if(document.getElementById('d' + i)) document.getElementById('d' + i).innerText = val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                const el = document.getElementById('d' + i);
+                if(el) el.innerText = val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 total += val;
                 if (val > 0) preenchidos++;
             });
-            document.getElementById('lucro-semanal').innerText = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            document.getElementById('lucro-media').innerText = (preenchidos > 0 ? total / preenchidos : 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            
+            if(document.getElementById('lucro-semanal')) document.getElementById('lucro-semanal').innerText = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            if(document.getElementById('lucro-media')) document.getElementById('lucro-media').innerText = (preenchidos > 0 ? total / preenchidos : 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             
             let idx = (new Date().getDay() === 0) ? 6 : new Date().getDay() - 1;
-            document.getElementById('lucro-diario').innerText = (listaValores[idx] || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            if(document.getElementById('lucro-diario')) document.getElementById('lucro-diario').innerText = (listaValores[idx] || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             localStorage.setItem('vision_lucros', JSON.stringify(listaValores));
         }
 
@@ -135,11 +155,16 @@
 
         function rodarRelogio() {
             const n = new Date();
-            document.getElementById('relogio-texto').innerText = n.toLocaleTimeString('pt-BR');
-            document.getElementById('data-texto').innerText = n.toLocaleDateString('pt-BR').replace(/\//g, '-');
+            if(document.getElementById('relogio-texto')) document.getElementById('relogio-texto').innerText = n.toLocaleTimeString('pt-BR');
+            if(document.getElementById('data-texto')) document.getElementById('data-texto').innerText = n.toLocaleDateString('pt-BR').replace(/\//g, '-');
+            
             const dias = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-            document.getElementById('dia-texto').innerText = dias[n.getDay()];
-            document.getElementById('tempo-restante').innerText = `Faltam ${23 - n.getHours()}h ${59 - n.getMinutes()}min para resetar`;
+            if(document.getElementById('dia-texto')) document.getElementById('dia-texto').innerText = dias[n.getDay()];
+            
+            const h = 23 - n.getHours();
+            const m = 59 - n.getMinutes();
+            const s = 59 - n.getSeconds();
+            if(document.getElementById('tempo-restante')) document.getElementById('tempo-restante').innerText = `Faltam ${h}h ${m}min ${s}s`;
         }
 
         setInterval(rodarRelogio, 1000);
