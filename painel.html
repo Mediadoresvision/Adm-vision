@@ -3,91 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vision Apostas - Painel Premium</title>
+    <title>Mediadores Vision - Painel</title>
     <style>
-        /* Estilos Globais Modernos */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: linear-gradient(180deg, #070a13 0%, #0c111d 100%);
+            background-color: #070a13; /* Fundo azul escuro profundo */
             color: #ffffff;
-            min-height: 100vh;
-            padding: 80px 16px 30px 16px;
+            padding: 16px;
+            padding-top: 80px; /* Espaço para a barra fixa não cobrir o conteúdo */
             display: flex;
             justify-content: center;
             align-items: flex-start;
+            min-height: 100vh;
         }
 
-        /* ================= TOPO FIXO PREMIUM ================= */
+        .dashboard-container {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* ================= BARRA DO TOPO FIXA ================= */
         .top-navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 65px;
-            background: rgba(17, 22, 34, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            height: 60px;
+            background-color: #111622;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
-            z-index: 99999;
+            padding: 0 16px;
+            z-index: 10000;
         }
 
         .nav-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .nav-left img {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
+            width: 35px;
+            height: 35px;
+            border-radius: 6px;
             border: 1px solid #0066ff;
-            box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+            object-fit: cover;
         }
 
         .nav-left span {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
-            letter-spacing: -0.3px;
         }
 
-        /* Botão Três Pontinhos Impecável */
         .menu-dots-btn {
             background: transparent;
             border: none;
-            color: #f1f5f9;
-            font-size: 28px;
+            color: #94a3b8;
+            font-size: 24px;
             cursor: pointer;
             padding: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            z-index: 10002;
         }
 
-        /* Menu Suspenso Lindo (Estilo iOS/Android Premium) */
+        /* Caixa do Menu Suspenso (Dropdown) */
         .dropdown-menu {
             display: none;
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            background: #161c2a;
-            border: 1px solid rgba(0, 102, 255, 0.25);
-            border-radius: 14px;
-            width: 190px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            position: absolute;
+            top: 50px;
+            right: 16px;
+            background-color: #161b26;
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            border-radius: 8px;
+            width: 180px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             overflow: hidden;
-            z-index: 999999;
+            z-index: 10005;
         }
 
         .dropdown-item {
@@ -95,15 +94,14 @@
             align-items: center;
             gap: 12px;
             width: 100%;
-            padding: 14px 18px;
+            padding: 12px 16px;
             background: transparent;
             border: none;
-            color: #e2e8f0;
-            font-size: 14px;
+            color: #cbd5e1;
+            font-size: 13px;
             text-align: left;
             cursor: pointer;
-            transition: background 0.2s;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .dropdown-item:last-child {
@@ -111,37 +109,26 @@
             color: #f87171;
         }
 
-        .dropdown-item:active {
-            background-color: rgba(0, 102, 255, 0.25);
-        }
-
-        /* ================= CONTAINER PRINCIPAL ================= */
-        .dashboard-container {
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        /* Foto e Título Central */
+        /* ================= CONTEÚDO CENTRAL DO PAINEL ================= */
         .header-section {
             text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
 
         .header-section img {
-            width: 96px;
-            height: 96px;
-            border-radius: 20px;
+            width: 90px;
+            height: 90px;
+            border-radius: 12px;
             border: 2px solid #0066ff;
-            box-shadow: 0 0 25px rgba(0, 102, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
             object-fit: cover;
             margin-bottom: 16px;
         }
 
         .header-section h2 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .header-section p {
@@ -149,43 +136,43 @@
             font-size: 13px;
         }
 
-        /* Grade de Cartões */
+        /* Grade adaptável: Um embaixo do outro no celular, colunas deitadas no computador */
         .stats-grid {
             display: grid;
-            grid-template-columns: 1fr; /* Em pé no celular */
-            gap: 16px;
-            margin-bottom: 24px;
+            grid-template-columns: 1fr;
+            gap: 14px;
+            margin-bottom: 20px;
         }
 
-        /* ================= CARTÕES COM EFEITO DE AURA SUAVE ================= */
-        .stat-card, .action-card {
-            background: #131926;
-            padding: 22px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            position: relative;
-            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+        /* Modelo de Cartão Largo igual ao print do Quebrada */
+        .stat-card {
+            background: #161b26; /* Cor escura do padrão Vision */
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
-        /* Efeito de Aura Azul Suave e Elegante ao tocar */
-        .stat-card:active, .action-card:active {
-            border-color: #0066ff;
-            box-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
-            transform: scale(0.98);
-        }
-
-        /* Ícones em Círculos Azuis Fluidos */
-        .card-icon-circle {
-            width: 36px;
-            height: 36px;
-            background: rgba(0, 102, 255, 0.15);
-            border: 1px solid rgba(0, 102, 255, 0.3);
-            border-radius: 10px;
+        /* Caixa de ícone azul */
+        .card-icon-box {
+            width: 32px;
+            height: 32px;
+            background: #0066ff;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 14px;
-            font-size: 16px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        /* Efeito de Aura Azul ao clicar/tocar no cartão */
+        .stat-card:active, .action-card:active {
+            border-color: #0066ff;
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.6);
         }
 
         .stat-card p {
@@ -197,74 +184,73 @@
         }
 
         .stat-card .value {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             margin-top: 6px;
-            letter-spacing: -0.5px;
         }
 
         .stat-card .sub-text {
             color: #38bdf8;
-            font-size: 13px;
+            font-size: 12px;
             margin-top: 6px;
             font-weight: 500;
         }
 
-        /* Área do Formulário */
-        .action-title {
-            font-size: 15px;
-            font-weight: 600;
+        /* Bloco de Entrada */
+        .action-card {
+            background: #161b26;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
             margin-bottom: 16px;
-            color: #f1f5f9;
+            transition: all 0.3s ease;
+        }
+
+        .action-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 14px;
         }
 
         .input-box {
             position: relative;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .input-box span {
             position: absolute;
-            left: 16px;
+            left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: #475569;
+            color: #64748b;
             font-weight: 600;
-            font-size: 16px;
         }
 
         .input-box input {
             width: 100%;
-            padding: 16px 16px 16px 36px;
+            padding: 14px 14px 14px 32px;
             background: #090d16;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 10px;
-            color: white;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-        
-        .input-box input:focus {
-            border-color: #0066ff;
-        }
-
-        /* Botão Fluido Principal */
-        .btn-blue {
-            width: 100%;
-            padding: 16px;
-            background: #0066ff;
-            border: none;
-            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
             color: white;
             font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+            outline: none;
         }
 
-        /* Camada para fechar o menu ao clicar fora */
-        .menu-backdrop {
+        .btn-blue {
+            width: 100%;
+            padding: 14px;
+            background: #0066ff;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Camada invisível de fechamento */
+        .menu-overlay {
             display: none;
             position: fixed;
             top: 0;
@@ -274,60 +260,72 @@
             z-index: 9999;
         }
 
-        /* ================= COMPORTAMENTO NO COMPUTADOR (DEITADO) ================= */
+        /* ================= COMPORTAMENTO NO PC DEITADO ================= */
         @media (min-width: 768px) {
             .stats-grid {
-                grid-template-columns: repeat(4, 1fr); /* 4 colunas perfeitamente deitadas */
-                gap: 20px;
-            }
-            .stat-card:hover, .action-card:hover {
-                border-color: #0066ff;
-                box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+                grid-template-columns: 1fr 1fr 1fr 1fr; /* Vira 4 colunas deitadas no computador */
+                gap: 16px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Camada invisível de fundo -->
-    <div class="menu-backdrop" id="backdrop" onclick="fecharMenuComClickFora()"></div>
+    <div class="menu-overlay" id="overlay-menu" onclick="alternarMenu()"></div>
 
-    <!-- Navbar Superior -->
+    <!-- Barra do Topo Fixa -->
     <nav class="top-navbar">
         <div class="nav-left">
-            <img src="https://unsplash.com" alt="Logo">
+            <img src="assets/images/logo.png" alt="Logo" onerror="this.src='https://placehold.co'">
             <span>Mediadores Vision</span>
         </div>
-        
-        <!-- Botão de 3 Pontinhos Destravado -->
-        <button type="button" class="menu-dots-btn" onclick="toggleMenuSuspenso(event)">⋮</button>
+        <button type="button" class="menu-dots-btn" onclick="alternarMenu()">⋮</button>
 
-        <!-- Menu Suspenso -->
-        <div class="dropdown-menu" id="menuFlutuante">
-            <button class="dropdown-item" onclick="irPara('inicio')">🏠 Início</button>
-            <button class="dropdown-item" onclick="irPara('dashboard')">📊 Dashboard</button>
-            <button class="dropdown-item" onclick="irPara('editar')">📝 Editar Lucros</button>
-            <button class="dropdown-item" onclick="irPara('config')">⚙️ Configurações</button>
-            <button class="dropdown-item" onclick="irPara('sair')">↪️ Sair</button>
+        <div class="dropdown-menu" id="caixa-menu">
+            <button class="dropdown-item" onclick="navegarPara('inicio')">🏠 Início</button>
+            <button class="dropdown-item" onclick="navegarPara('dashboard')">📊 Dashboard</button>
+            <button class="dropdown-item" onclick="navegarPara('editar')">📝 Editar Lucros</button>
+            <button class="dropdown-item" onclick="navegarPara('config')">⚙️ Configurações</button>
+            <button class="dropdown-item" onclick="navegarPara('sair')">↪️ Sair</button>
         </div>
     </nav>
 
     <div class="dashboard-container">
         
-        <!-- Header Centralizado -->
+        <!-- Cabeçalho Vision -->
         <div class="header-section">
-            <img src="https://unsplash.com" alt="Vision Logo">
+            <img src="assets/images/logo.png" alt="Vision Logo" onerror="this.src='https://placehold.co'">
             <h2>Painel de Controle</h2>
             <p>Gerencie seus lucros com profissionalismo</p>
         </div>
 
-        <!-- Grade de Cartões Premium -->
+        <!-- Grade de Cartões Completos -->
         <div class="stats-grid">
             
             <!-- Lucro Diário -->
-            <div class="stat-card" onclick="focarNoInput()">
-                <div class="card-icon-circle">📅</div>
+            <div class="stat-card" onclick="document.getElementById('valor-input').focus()">
+                <div class="card-icon-box">📅</div>
                 <p>Lucro Diário</p>
                 <div class="value" id="lucro-diario">R$ 0,00</div>
             </div>
 
+            <!-- Lucro Semanal -->
+            <div class="stat-card" onclick="document.getElementById('valor-input').focus()">
+                <div class="card-icon-box">📊</div>
+                <p>Lucro Semanal</p>
+                <div class="value" id="lucro-semanal">R$ 0,00</div>
+            </div>
+
+            <!-- Dia da Semana -->
+            <div class="stat-card">
+                <div class="card-icon-box">📆</div>
+                <p>Dia da Semana</p>
+                <div class="value" id="dia-texto">...</div>
+                <div class="sub-text" id="data-texto" style="color: #64748b;">00-00-2026</div>
+            </div>
+
+            <!-- Hora Atual -->
+            <div class="stat-card">
+                <div class="card-icon-box">🕒</div>
+                <p>Hora Atual</p>
+                <div class="value" id="relogio-texto" style="color: #38bdf8;">00:00:00</div>
