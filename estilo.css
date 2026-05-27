@@ -1,44 +1,255 @@
+/* RESET GLOBAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
 body {
     background-color: #0d0d0d;
     color: #ffffff;
+    padding: 16px;
+    padding-top: 75px; /* Evita que a barra cubra o conteúdo */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
 }
-.top-navbar, .stat-card, .action-card, .login-card, .dropdown-menu {
+
+/* NAVBAR DO TOPO FIXA CORRIGIDA */
+.top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 55px;
     background-color: #141414;
-    border: 1px solid #1f1f1f;
+    border-bottom: 1px solid #1f1f1f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 999999; /* Joga a barra e o botão na camada mais alta da tela */
 }
-.card-icon-box, .btn-blue, .tab.active {
-    background-color: #0066ff !important;
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
+
+.nav-left img {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.nav-left span {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.nav-right-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .user-name-display {
+    font-size: 13px;
+    font-weight: 600;
     color: #0066ff;
 }
-/* Estilos comuns de layout */
-.top-navbar { position: fixed; top: 0; left: 0; width: 100%; height: 55px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; z-index: 99999; }
-.nav-left, .nav-right-area { display: flex; align-items: center; gap: 10px; }
-.nav-left img { width: 32px; height: 32px; border-radius: 4px; }
-.menu-dots-btn { background: transparent; border: none; color: #ffffff; font-size: 22px; cursor: pointer; }
-.dropdown-menu { display: none; position: absolute; top: 50px; right: 16px; border-radius: 8px; width: 180px; box-shadow: 0 10px 25px rgba(0,0,0,0.7); z-index: 100000; }
-.dropdown-item { display: flex; width: 100%; padding: 12px 16px; background: transparent; border: none; color: #ffffff; font-size: 13px; cursor: pointer; border-bottom: 1px solid #1f1f1f; }
-.header-section { text-align: center; margin-bottom: 24px; }
-.header-section img { width: 90px; height: 90px; border-radius: 8px; border: 2px solid #0066ff; margin-bottom: 14px; }
-.stats-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
-.stat-card { padding: 20px; border-radius: 12px; display: flex; flex-direction: column; }
-.card-icon-box { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
-.stat-card p { color: #666666; font-size: 10px; text-transform: uppercase; }
-.stat-card .value { font-size: 22px; font-weight: 700; margin-top: 4px; }
-.stat-card .sub-text { color: #666666; font-size: 11px; margin-top: 4px; }
-.action-card { padding: 16px; border-radius: 12px; }
-.action-title { font-size: 12px; font-weight: 600; margin-bottom: 12px; }
-.input-box { position: relative; margin-bottom: 12px; }
-.input-box span { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #666666; font-weight: 600; }
-.input-box input { width: 100%; padding: 12px 12px 12px 32px; background: #080808; border: 1px solid #1f1f1f; border-radius: 6px; color: white; }
-.btn-blue { width: 100%; padding: 12px; border: none; border-radius: 6px; color: white; font-weight: 600; cursor: pointer; }
-.day-row-click { display: flex; justify-content: space-between; background: #080808; padding: 12px; border-radius: 6px; margin-bottom: 6px; cursor: pointer; }
-.menu-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99998; }
-/* Estilos do Login */
-.login-card { padding: 40px 30px; border-radius: 20px; text-align: center; max-width: 400px; margin: auto; margin-top: 10%; }
-.auth-tabs { display: flex; background: #080808; padding: 4px; border-radius: 8px; margin-bottom: 25px; }
-.tab { flex: 1; padding: 10px; color: #666666; font-weight: 600; border-radius: 6px; cursor: pointer; }
-.tab.active { color: white; }
-.input-group { margin-bottom: 16px; }
-.input-group input { width: 100%; padding: 16px; background: #080808; border: 1px solid #1f1f1f; border-radius: 12px; color: white; }
+
+/* BOTÃO DOS 3 PONTINHOS FORÇADO VISÍVEL */
+.menu-dots-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 26px !important;
+    font-weight: bold !important;
+    cursor: pointer;
+    padding: 6px 12px;
+    display: block !important;
+}
+
+/* MENU DROPDOWN FLUTUANTE AJUSTADO */
+.dropdown-menu {
+    display: none;
+    position: fixed; /* Fixado em relação à tela */
+    top: 50px;
+    right: 16px;
+    background-color: #141414;
+    border: 1px solid #262626;
+    border-radius: 8px;
+    width: 180px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+    z-index: 1000000;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    border-bottom: 1px solid #1f1f1f;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+    color: #ff4444;
+}
+
+/* DESIGN DOS CARTÕES EM VERTICAL */
+.dashboard-container {
+    width: 100%;
+    max-width: 480px;
+}
+
+.header-section {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.header-section .logo-principal {
+    width: 90px;
+    height: 90px;
+    border-radius: 8px;
+    border: 2px solid #0066ff;
+    margin-bottom: 14px;
+}
+
+.stats-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.stat-card {
+    background: #141414;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ÍCONES DOS BLOCOS */
+.card-icon-box {
+    width: 28px;
+    height: 28px;
+    background-color: #0066ff;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.stat-card p {
+    color: #666666;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card .value {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+.stat-card .sub-text {
+    color: #666666;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+/* ÁREAS DE AÇÃO E INPUTS */
+.action-card {
+    background: #141414;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    margin-bottom: 12px;
+}
+
+.action-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.input-box span {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666666;
+    font-weight: 600;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px 12px 12px 32px;
+    background: #080808;
+    border: 1px solid #1f1f1f;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    outline: none;
+}
+
+.btn-blue {
+    width: 100%;
+    padding: 12px;
+    background-color: #0066ff;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* PAINEL DE EDIÇÃO DE DIAS */
+.day-row-click {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #080808;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    border: 1px solid #1f1f1f;
+}
+
+.menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99998;
+    background: transparent;
+}
